@@ -1,24 +1,19 @@
 package com.cominatyou.silverpoint;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
@@ -80,6 +75,8 @@ public class DebugPanel extends AppCompatActivity {
         long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
         String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
         binding.lastRanField.setText(lastInvokedFormatted);
+        boolean workerSuccess = sharedPreferences.getBoolean("workerSuccess", false);
+        binding.workerResultField.setText(workerSuccess ? "Success" : "Failure");
         binding.latestIncidentId.setText(sharedPreferences.getString("latestIncidentID", "null"));
         binding.latestIncidentUpdateId.setText(sharedPreferences.getString("latestIncidentUpdateID", "null"));
         binding.apistatusStatus.setText(APIResponse.getStatus() == null ? "null": "JSONObject");
