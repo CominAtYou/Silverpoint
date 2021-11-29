@@ -16,7 +16,9 @@ public class SharedPrefsDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final SharedPreferences sharedPreferences = requireContext().getSharedPreferences("incidentData", Context.MODE_PRIVATE);
         return new AlertDialog.Builder(requireContext())
-                .setMessage("Latest Incident ID: " + (sharedPreferences.getString("latestIncidentID", "No Value").equals("") ? "Empty String" : sharedPreferences.getString("latestIncidentID", "No Value")) + "\nLatest Incident Update ID: " + (sharedPreferences.getString("latestIncidentUpdateID", "No Value").equals("") ? "Empty String" : sharedPreferences.getString("latestIncidentUpdateID", "No Value")))
+                .setMessage("Latest Incident ID: " + (sharedPreferences.getString("latestIncidentID", "No Value").equals("") ? "Empty String" : sharedPreferences.getString("latestIncidentID", "No Value"))
+                        + "\nLatest Incident Update ID: " + (sharedPreferences.getString("latestIncidentUpdateID", "No Value").equals("") ? "Empty String" : sharedPreferences.getString("latestIncidentUpdateID", "No Value"))
+                        + String.format("\nAPIResponse.status: %s", APIResponse.getStatus() == null ? "Null" : "JSONObject"))
                 .setPositiveButton("Done", (dialog, which) -> {} )
                 .create();
     }
