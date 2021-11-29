@@ -37,6 +37,7 @@ public class DebugPanel extends AppCompatActivity {
         String selectedEndpoint = sharedPreferences.getString("selectedEndpoint", null);
         if (selectedEndpoint == null) {
             sharedPreferences.edit().putString("selectedEndpoint", "production").apply();
+            binding.endpointRadioGroup.check(R.id.radio_prod_endpoint);
         }
         else if (selectedEndpoint.equals("production")) {
             binding.endpointRadioGroup.check(R.id.radio_prod_endpoint);
@@ -55,7 +56,7 @@ public class DebugPanel extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("You're about to switch to the testing endpoint. This endpoint is completely separate from the Discord status endpoint, and as such, you will not receive notifications when Discord goes down. Instead, you will receive testing notifications, which will be of no use to you, and will be frequent at times."
                         + "\n\nUnless you have been asked to, it is highly recommended to stay on the production endpoint for full functionality."
-                        + "\n\nContinue Anyway?")
+                        + "\n\nContinue anyway?")
                         .setTitle("Hold Up!");
                 builder.setPositiveButton("Yes", (dialog, which) -> {
                     dontWarnAgain[0] = true;
