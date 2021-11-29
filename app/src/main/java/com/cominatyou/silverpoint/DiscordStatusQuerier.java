@@ -21,8 +21,12 @@ public class DiscordStatusQuerier extends Worker {
         GetStatus.get(getApplicationContext());
         JSONObject status = APIResponse.getStatus();
         final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("incidentData", Context.MODE_PRIVATE);
+        final SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
+
+        configSharedPreferences.edit().putLong("lastInvoked", System.currentTimeMillis()).apply();
 
         if (status == null) {
+            configSharedPreferences.edit().putBoolean("workerSuccess", false).apply();
             return Result.failure();
         }
         try {
@@ -44,6 +48,7 @@ public class DiscordStatusQuerier extends Worker {
             }
             // Resolved incident, but it's already been seen before, so don't do anything with it
             else if (latestIncident.getString("status").equals("resolved") && latestSeenIncidentID.equals("")) {
+                configSharedPreferences.edit().putBoolean("workerSuccess", true).apply();
                 return Result.success();
             }
             // if incident but has updates, display latest update

@@ -1,5 +1,6 @@
 package com.cominatyou.silverpoint;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +10,8 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.WorkManager;
 
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.testWorker.setOnClickListener(v -> WorkTester.test(getApplicationContext()));
 
-        binding.querySharedPrefs.setOnClickListener(v -> new SharedPrefsDialogFragment().show(getSupportFragmentManager(), SharedPrefsDialogFragment.TAG));
+        binding.querySharedPrefs.setOnClickListener(v -> {
+//            new SharedPrefsDialogFragment().show(getSupportFragmentManager(), SharedPrefsDialogFragment.TAG)
+            Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
+            startActivity(intent);
+        });
     }
 }
