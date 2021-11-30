@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.view.View;
 
@@ -17,8 +18,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DebugPanel extends AppCompatActivity {
+
+    private Handler timerHandler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final boolean[] dontWarnAgain = {false};
@@ -81,7 +87,15 @@ public class DebugPanel extends AppCompatActivity {
         binding.latestIncidentUpdateId.setText(sharedPreferences.getString("latestIncidentUpdateID", "null"));
         binding.apistatusStatus.setText(APIResponse.getStatus() == null ? "null": "JSONObject");
         binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE.toUpperCase(), BuildConfig.VERSION_CODE));
-        final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
-        binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                timerHandler.post(() -> {
+                    long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
+                    String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
+                    binding.lastRanField.setText(lastInvokedFormatted);
+                });
+            }
+        }, 0L, 1000L);
     }
 }
