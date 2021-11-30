@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
         WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.checkStatus);
 
-        binding.startWorker.setOnClickListener(v -> {
+        binding.startWorkerLayout.setOnClickListener(v -> {
             WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.checkStatus);
             Toast.makeText(getApplicationContext(), "Worker started!", Toast.LENGTH_LONG).show();
         });
 
-        binding.testWorker.setOnClickListener(v -> WorkTester.test(getApplicationContext()));
+        binding.testWorkerLayout.setOnClickListener(v -> WorkTester.test(getApplicationContext()));
 
-        binding.querySharedPrefs.setOnClickListener(v -> {
+        binding.debugLayout.setOnClickListener(v -> {
 //            new SharedPrefsDialogFragment().show(getSupportFragmentManager(), SharedPrefsDialogFragment.TAG)
             Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
             startActivity(intent);

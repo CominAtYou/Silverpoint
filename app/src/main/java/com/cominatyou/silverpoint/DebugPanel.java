@@ -80,7 +80,7 @@ public class DebugPanel extends AppCompatActivity {
 
         long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
         String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
-        binding.lastRanField.setText(lastInvokedFormatted);
+        binding.lastRanField.setText(lastInvokedFormatted.equals("0 minutes ago") ? "Just now" : lastInvokedFormatted);
         boolean workerSuccess = sharedPreferences.getBoolean("workerSuccess", false);
         binding.workerResultField.setText(workerSuccess ? "Success" : "Failure");
         binding.latestIncidentId.setText(sharedPreferences.getString("latestIncidentID", "null"));
@@ -95,7 +95,7 @@ public class DebugPanel extends AppCompatActivity {
                 timerHandler.post(() -> {
                     long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
                     String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
-                    binding.lastRanField.setText(lastInvokedFormatted);
+                    binding.lastRanField.setText(lastInvokedFormatted.equals("0 minutes ago") ? "Just now" : lastInvokedFormatted);
                 });
             }
         }, 0L, 1000L);
