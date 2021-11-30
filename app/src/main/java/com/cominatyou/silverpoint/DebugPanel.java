@@ -87,6 +87,8 @@ public class DebugPanel extends AppCompatActivity {
         binding.latestIncidentUpdateId.setText(sharedPreferences.getString("latestIncidentUpdateID", "null"));
         binding.apistatusStatus.setText(APIResponse.getStatus() == null ? "null": "JSONObject");
         binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE.toUpperCase(), BuildConfig.VERSION_CODE));
+        final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
+        binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
