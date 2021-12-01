@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 public class DebugPanel extends AppCompatActivity {
 
-    private Handler timerHandler = new Handler();
+    private final Handler timerHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
