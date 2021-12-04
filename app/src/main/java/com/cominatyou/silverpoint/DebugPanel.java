@@ -34,10 +34,11 @@ public class DebugPanel extends AppCompatActivity {
         setContentView(view);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Debug");
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
-        String selectedEndpoint = sharedPreferences.getString("selectedEndpoint", null);
+        SharedPreferences incidentSharedPreferences= getApplicationContext().getSharedPreferences("incidentData", Context.MODE_PRIVATE);
+        SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
+        String selectedEndpoint = configSharedPreferences.getString("selectedEndpoint", null);
         if (selectedEndpoint == null) {
-            sharedPreferences.edit().putString("selectedEndpoint", "production").apply();
+            configSharedPreferences.edit().putString("selectedEndpoint", "production").apply();
             binding.endpointRadioGroup.check(R.id.radio_prod_endpoint);
         }
         else if (selectedEndpoint.equals("production")) {
@@ -61,7 +62,7 @@ public class DebugPanel extends AppCompatActivity {
                         .setTitle("Hold Up!");
                 builder.setPositiveButton("Yes", (dialog, which) -> {
                     dontWarnAgain[0] = true;
-                    sharedPreferences.edit().putString("selectedEndpoint", "testing").apply();
+                    configSharedPreferences.edit().putString("selectedEndpoint", "testing").apply();
                 });
                 builder.setNegativeButton("No", (dialog, which) -> {
                     dontWarnAgain[0] = true;
@@ -74,28 +75,26 @@ public class DebugPanel extends AppCompatActivity {
                 builder.show();
             }
             else {
-                sharedPreferences.edit().putString("selectedEndpoint", "production").apply();
+                configSharedPreferences.edit().putString("selectedEndpoint", "production").apply();
             }
         });
 
-        long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
-        String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
-        binding.lastRanField.setText(lastInvokedFormatted.equals("0 minutes ago") ? "Just now" : lastInvokedFormatted);
-        boolean workerSuccess = sharedPreferences.getBoolean("workerSuccess", false);
-        binding.workerResultField.setText(workerSuccess ? "Success" : "Failure");
-        binding.latestIncidentId.setText(sharedPreferences.getString("latestIncidentID", "null"));
-        binding.latestIncidentUpdateId.setText(sharedPreferences.getString("latestIncidentUpdateID", "null"));
-        binding.apistatusStatus.setText(APIResponse.getStatus() == null ? "null": "JSONObject");
-        binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE.toUpperCase(), BuildConfig.VERSION_CODE));
-        final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
-        binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 timerHandler.post(() -> {
-                    long lastRun = sharedPreferences.getLong("lastInvoked", 0L);
+                    long lastRun = configSharedPreferences.getLong("lastInvoked", 0L);
                     String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
                     binding.lastRanField.setText(lastInvokedFormatted.equals("0 minutes ago") ? "Just now" : lastInvokedFormatted);
+                    boolean workerSuccess = configSharedPreferences.getBoolean("workerSuccess", false);
+                    binding.workerResultField.setText(workerSuccess ? "Success" : "Failure");
+                    final CharSequence latestIncidentID = incidentSharedPreferences.getString("latestIncidentID", "null");
+                    binding.latestIncidentId.setText(latestIncidentID.equals("") ? "null" : latestIncidentID);
+                    final CharSequence latestIncidentUpdateID = incidentSharedPreferences.getString("latestIncidentUpdateID", "null");
+                    binding.latestIncidentUpdateId.setText(latestIncidentUpdateID.equals("") ? "null" : latestIncidentUpdateID);
+                    binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE.toUpperCase(), BuildConfig.VERSION_CODE));
+                    final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
+                    binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
                 });
             }
         }, 0L, 1000L);

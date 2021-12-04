@@ -17,6 +17,8 @@ public class BootReceiver extends BroadcastReceiver {
     public static final PeriodicWorkRequest checkStatus = new PeriodicWorkRequest.Builder(DiscordStatusQuerier.class, 15, TimeUnit.MINUTES).setConstraints(constraints).build();
     @Override
     public void onReceive(Context context, Intent intent) { // Start WorkManager.
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, checkStatus);
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, checkStatus);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.cominatyou.silverpoint;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -9,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.WorkManager;
 
+import com.cominatyou.silverpoint.Notifications.NotificationChannels;
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
-
-import java.util.Objects;
+import com.cominatyou.silverpoint.updates.UpdateChecker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +24,23 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        /*
+        *   Create notification channels as soon as possible so user is able to
+        *   customize them to their liking as soon as possible.
+        */
+        NotificationChannels.createActiveIncidentChannel(getApplicationContext());
+        NotificationChannels.createAvailableUpdateChannel(getApplicationContext());
+
+        SharedPreferences updateSharedPreferences = getApplicationContext().getSharedPreferences("updates", Context.MODE_PRIVATE);
+        if (updateSharedPreferences.getInt("lastSeenAppVersion", BuildConfig.VERSION_CODE) < BuildConfig.VERSION_CODE) {
+            updateSharedPreferences.edit()
+                    .putBoolean("alerted", false)
+                    .putBoolean("breakingUpdateAvailable", false)
+                    .apply();
+        }
+        updateSharedPreferences.edit().putInt("lastSeenAppVersion", BuildConfig.VERSION_CODE).apply();
+
+        UpdateChecker.checkForUpdates(binding, getApplicationContext());
         WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.checkStatus);
 
         binding.startWorkerLayout.setOnClickListener(v -> {
@@ -32,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         binding.testWorkerLayout.setOnClickListener(v -> WorkTester.test(getApplicationContext()));
 
         binding.debugLayout.setOnClickListener(v -> {
-//            new SharedPrefsDialogFragment().show(getSupportFragmentManager(), SharedPrefsDialogFragment.TAG)
             Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
             startActivity(intent);
         });
