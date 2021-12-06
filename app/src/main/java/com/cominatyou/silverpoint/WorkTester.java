@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import com.cominatyou.silverpoint.Notifications.NotificationUtil;
+import com.cominatyou.silverpoint.notifications.NotificationUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

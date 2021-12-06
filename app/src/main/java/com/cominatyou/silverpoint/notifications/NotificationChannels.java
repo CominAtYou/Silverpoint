@@ -1,4 +1,4 @@
-package com.cominatyou.silverpoint.Notifications;
+package com.cominatyou.silverpoint.notifications;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

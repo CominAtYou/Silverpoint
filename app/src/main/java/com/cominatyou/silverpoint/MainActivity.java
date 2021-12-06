@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.WorkManager;
 
-import com.cominatyou.silverpoint.Notifications.NotificationChannels;
+import com.cominatyou.silverpoint.notifications.NotificationChannels;
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 

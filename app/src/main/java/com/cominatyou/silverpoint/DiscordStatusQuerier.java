@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.cominatyou.silverpoint.Notifications.NotificationUtil;
+import com.cominatyou.silverpoint.notifications.NotificationUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
