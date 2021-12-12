@@ -67,7 +67,7 @@ public class DiscordStatusQuerier extends Worker {
 
             if (latestIncident.getString("status").equals("resolved") && !latestSeenIncidentID.equals("")) {
                 NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
-                sharedPreferences.edit().putString("latestIncidentID", "").apply();
+                sharedPreferences.edit().putString("latestIncidentID", "").putString("latestIncidentUpdateID", "").apply();
             }
             // Resolved incident, but it's already been seen before, so don't do anything with it
             else if (latestIncident.getString("status").equals("resolved") && latestSeenIncidentID.equals("")) {
