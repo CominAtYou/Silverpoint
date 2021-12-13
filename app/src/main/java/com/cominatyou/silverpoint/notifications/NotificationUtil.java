@@ -24,6 +24,7 @@ public class NotificationUtil {
                     .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
+                .setColor(context.getColor(R.color.silverpoint_light))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationChannels.createActiveIncidentChannel(context);
@@ -36,6 +37,7 @@ public class NotificationUtil {
                 .setContentTitle(title)
                 .setContentText(description)
                 .setSmallIcon(R.drawable.ic_dns)
+                .setColor(context.getColor(R.color.silverpoint_light))
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(description))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
@@ -57,6 +59,7 @@ public class NotificationUtil {
                         .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
+                .setColor(context.getColor(R.color.silverpoint_light))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationChannels.createAvailableUpdateChannel(context);
