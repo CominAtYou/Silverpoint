@@ -41,6 +41,7 @@ public class DiscordStatusQuerier extends Worker {
                 e.printStackTrace();
             }
         }, null);
+        request.setShouldCache(false);
         queue.add(request);
 
         configSharedPreferences.edit().putLong("lastInvoked", System.currentTimeMillis()).apply();
