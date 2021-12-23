@@ -36,11 +36,11 @@ public class UpdateChecker {
                 }
                 else if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking")) {
                     Snackbar.make(binding.snackbarCoordinator, "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> context.startActivity(downloadIntent)).show();
-                    final TextView[] buttonTitles = {binding.startWorkerTitle, binding.viewIncidentTitle, binding.debugTitle};
+                    final TextView[] buttonTitles = {binding.startWorkerTitle, binding.testWorkerTitle, binding.debugTitle};
                     for (TextView titleText : buttonTitles) {
                         titleText.setTextColor(context.getColor(R.color.grey_300));
                     }
-                    final View[] buttonElements = {binding.startWorkerLayout, binding.startWorkerDescription, binding.viewIncidentTitle, binding.debugLayout, binding.viewIncidentDescription, binding.debugDescription};
+                    final View[] buttonElements = {binding.startWorkerLayout, binding.startWorkerDescription, binding.testWorkerTitle, binding.debugLayout, binding.debugDescription};
                     for (View buttonElement : buttonElements) {
                         buttonElement.setEnabled(false);
                     }
