@@ -69,7 +69,7 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="15dp"
             android:text="@string/view_active_incident"
-            android:textColor="#E0E0E0"
+            android:textColor="@color/text_disabled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
