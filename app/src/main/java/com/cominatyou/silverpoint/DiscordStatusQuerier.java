@@ -67,8 +67,9 @@ public class DiscordStatusQuerier extends Worker {
             final String latestIncidentUpdateBody = latestIncidentUpdate.getString("body");
             final String latestIncidentUpdateId = latestIncidentUpdate.getString("id");
 
+            // Incident is resolved
             if (latestIncident.getString("status").equals("resolved") && ActiveIncidentUtil.inProgress(getApplicationContext())) {
-                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
+                NotificationUtil.sendWithoutTapAction("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
                 ActiveIncidentUtil.clear(getApplicationContext());
             }
 

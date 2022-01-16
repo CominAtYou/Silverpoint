@@ -1,6 +1,5 @@
 package com.cominatyou.silverpoint;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +19,6 @@ import com.cominatyou.silverpoint.notifications.NotificationChannels;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;

@@ -9,9 +9,35 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.cominatyou.silverpoint.R;
+import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 
 public class NotificationUtil {
     public static void send(String title, String description, String buttonText, String shortlink, Context context) {
+        Intent linkIntent = new Intent(Intent.ACTION_VIEW);
+        linkIntent.setData(Uri.parse(shortlink));
+        PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent activityIntent = new Intent(context, IncidentStatusActivity.class);
+        activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "incidents")
+                .setSmallIcon(69)
+                .setContentTitle(title)
+                .setContentText(description)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(description))
+                .setSmallIcon(R.drawable.ic_dns)
+                .setContentIntent(activityPendingIntent)
+                .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
+                .setColor(context.getColor(R.color.silverpoint_light))
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        NotificationChannels.createActiveIncidentChannel(context);
+        NotificationManagerCompat.from(context).notify(1, builder.build());
+    }
+    public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, Context context) {
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -21,29 +47,13 @@ public class NotificationUtil {
                 .setContentTitle(title)
                 .setContentText(description)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description))
+                        .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
                 .setColor(context.getColor(R.color.silverpoint_light))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationChannels.createActiveIncidentChannel(context);
-
-        NotificationManagerCompat.from(context).notify(1, builder.build());
-    }
-    public static void send(String title, String description, Context context) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "incidents")
-                .setSmallIcon(69)
-                .setContentTitle(title)
-                .setContentText(description)
-                .setSmallIcon(R.drawable.ic_dns)
-                .setColor(context.getColor(R.color.silverpoint_light))
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(description))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        NotificationChannels.createActiveIncidentChannel(context);
-
         NotificationManagerCompat.from(context).notify(1, builder.build());
     }
     public static void sendUpdateNotification(String title, String description, String buttonText, String shortlink, Context context) {
@@ -63,7 +73,6 @@ public class NotificationUtil {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationChannels.createAvailableUpdateChannel(context);
-
         NotificationManagerCompat.from(context).notify(2, builder.build());
     }
 }
