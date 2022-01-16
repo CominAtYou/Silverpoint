@@ -11,6 +11,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.cominatyou.silverpoint.notifications.NotificationUtil;
+import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
+import com.cominatyou.silverpoint.util.RequestQueueSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +27,6 @@ public class DiscordStatusQuerier extends Worker {
     @Override
     public Result doWork() {
         final RequestQueue queue = RequestQueueSingleton.getInstance(getApplicationContext()).getQueue();
-        final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("incidentData", Context.MODE_PRIVATE);
         final SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
         final SharedPreferences updateSharedPreferences = getApplicationContext().getSharedPreferences("updates", Context.MODE_PRIVATE);
 
@@ -33,7 +34,7 @@ public class DiscordStatusQuerier extends Worker {
             try {
                 final JSONObject response = new JSONObject(rsp);
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking") && !updateSharedPreferences.getBoolean("alerted", false)) {
-                    NotificationUtil.sendUpdateNotification("Required Update Available", "A required update for Silverpoint has been released. You will not be able to receive notifications regarding Discord's status until you update.", "Update", "https://cdn.cominatyou.com/silverpoint/releases/latest", getApplicationContext());
+                    NotificationUtil.sendUpdateNotification("Required Update Available", "A required update for " + getApplicationContext().getString(R.string.app_name) + " has been released. You will not be able to receive notifications regarding Discord's status until you update.", "Update", "https://cdn.cominatyou.com/silverpoint/releases/latest", getApplicationContext());
                     updateSharedPreferences.edit().putBoolean("alerted", true).putBoolean("breakingUpdateAvailable", true).apply();
                 }
             }
@@ -62,32 +63,35 @@ public class DiscordStatusQuerier extends Worker {
             final String shortlink = latestIncident.getString("shortlink");
             final String incidentName = latestIncident.getString("name");
             final String incidentID = latestIncident.getString("id");
+            final String lastUpdated = latestIncident.has("updated_at") ? latestIncident.getString("updated_at") : latestIncident.getString("created_at");
             final String latestIncidentUpdateBody = latestIncidentUpdate.getString("body");
-            final String latestSeenIncidentID = sharedPreferences.getString("latestIncidentID", "");
-            final String latestSeenIncidentUpdateID = sharedPreferences.getString("latestIncidentUpdateID", "");
+            final String latestIncidentUpdateId = latestIncidentUpdate.getString("id");
 
-            if (latestIncident.getString("status").equals("resolved") && !latestSeenIncidentID.equals("")) {
+            if (latestIncident.getString("status").equals("resolved") && ActiveIncidentUtil.inProgress(getApplicationContext())) {
                 NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
-                sharedPreferences.edit().putString("latestIncidentID", "").putString("latestIncidentUpdateID", "").apply();
+                ActiveIncidentUtil.clear(getApplicationContext());
             }
+
             // Resolved incident, but it's already been seen before, so don't do anything with it
-            else if (latestIncident.getString("status").equals("resolved") && latestSeenIncidentID.equals("")) {
+            else if (latestIncident.getString("status").equals("resolved") && !ActiveIncidentUtil.inProgress(getApplicationContext())) {
                 configSharedPreferences.edit().putBoolean("workerSuccess", true).apply();
                 return Result.success();
             }
+
             // if incident but has updates, display latest update
-            // i am playing with fire with the latter condition
-            else if (incidentUpdates.length() > 1 && !latestSeenIncidentUpdateID.equals(latestIncidentUpdate.getString("id"))) {
-                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdate.getString("body"), "View Status", shortlink, getApplicationContext());
-                sharedPreferences.edit().putString("latestIncidentUpdateID", latestIncidentUpdate.getString("id")).apply();
-                // in case an update is posted before the worker can get the initial incident
-                if (latestSeenIncidentID.equals("")) sharedPreferences.edit().putString("latestIncidentID", incidentID).apply();
-            }
-            // if incident but no updates (aside from the initial), display incident
-            else if (incidentUpdates.length() == 1 && !latestSeenIncidentID.equals(incidentID)) {
+            else if (incidentUpdates.length() > 1 && !ActiveIncidentUtil.getLatestUpdateId(getApplicationContext()).equals(latestIncidentUpdateId)) {
                 NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
-                sharedPreferences.edit().putString("latestIncidentID", incidentID).apply();
+                ActiveIncidentUtil.setLatestUpdate(getApplicationContext(), latestIncidentUpdateId, latestIncidentUpdateBody);
+                // in case an update is posted before the worker can get the initial incident
+                if (!ActiveIncidentUtil.inProgress(getApplicationContext())) ActiveIncidentUtil.initializeIncident(getApplicationContext(), incidentName, incidentID);
             }
+
+            // if incident but no updates (aside from the initial), display incident
+            else if (incidentUpdates.length() == 1 && !ActiveIncidentUtil.getId(getApplicationContext()).equals(incidentID)) {
+                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, getApplicationContext());
+                ActiveIncidentUtil.initializeIncident(getApplicationContext(), incidentName, incidentID, latestIncidentUpdateId, latestIncidentUpdateBody, lastUpdated, shortlink);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             configSharedPreferences.edit().putBoolean("workerSuccess", false).apply();

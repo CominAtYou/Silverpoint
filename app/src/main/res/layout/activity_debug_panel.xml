@@ -20,31 +20,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <RadioGroup
-        android:id="@+id/endpoint_radio_group"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/apiEndpointTextView"
-        app:layout_constraintTop_toBottomOf="@+id/apiEndpointTextView"
-        app:layout_constraintVertical_bias="0.0">
-
-        <RadioButton
-            android:id="@+id/radio_prod_endpoint"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/debugSwitch"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Production (discordstatus.com)"
-            tools:ignore="HardcodedText" />
-
-        <RadioButton
-            android:id="@+id/radio_testing_endpoint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Testing (cdn.cominatyou.com)"
-            tools:ignore="HardcodedText" />
-
-    </RadioGroup>
+            android:layout_marginEnd="12dp"
+            android:textSize="16sp"
+            android:text="@string/enable_debug_mode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/apiEndpointTextView"
+            app:layout_constraintTop_toBottomOf="@+id/apiEndpointTextView" />
 
     <TextView
         android:id="@+id/worker_header"
@@ -235,11 +220,11 @@
         android:id="@+id/divider"
         android:layout_width="391dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endpoint_radio_group" />
+        app:layout_constraintTop_toBottomOf="@+id/debugSwitch" />
 
     <View
         android:id="@+id/divider2"

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Silverpoint">
         <activity
+            android:name=".incidentstatuspanel.IncidentStatusActivity"
+            android:exported="false"/>
+        <activity
             android:name=".DebugPanel"
             android:exported="false" />
         <activity

@@ -1,4 +1,4 @@
-package com.cominatyou.silverpoint;
+package com.cominatyou.silverpoint.util;
 
 import android.content.Context;
 

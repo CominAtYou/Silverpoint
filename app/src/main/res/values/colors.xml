@@ -327,4 +327,8 @@
     <color name="silverpoint_light">#D0165D</color>
     <color name="silverpoint_dark">#900B5E</color>
 
+    <color name="text_disabled">#E0E0E0</color>
+    <color name="info_title">#202124</color>
+
+
 </resources>
