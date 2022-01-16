@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
             binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
             if (ActiveIncidentUtil.inProgress(getApplicationContext())) {
-                binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.info_title));
+                binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.text_disabled));
                 binding.viewActiveIncidentDescription.setText(ActiveIncidentUtil.getTitle(getApplicationContext()));
             }
             else {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             binding.viewActiveIncidentDescription.setText(ActiveIncidentUtil.getTitle(getApplicationContext()));
         }
         else {
-            binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.grey_300));
+            binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.text_disabled));
             binding.viewActiveIncidentDescription.setEnabled(false);
             binding.viewActiveIncidentDescription.setText(R.string.there_currently_isn_t_an_active_incident);
         }
