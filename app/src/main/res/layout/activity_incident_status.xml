@@ -31,7 +31,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/incident_title_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loading"
@@ -62,7 +61,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/incident_description_tap_to_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tap_to_view"
@@ -92,7 +90,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/lastUpdatedValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/just_a_sec"
@@ -113,7 +110,6 @@
             app:layout_constraintTop_toBottomOf="@+id/last_updated_layout">
 
             <TextView
-                android:id="@+id/view_on_statuspage_title"
                 style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,7 +122,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/divider5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
@@ -160,7 +155,6 @@
             app:srcCompat="@drawable/ic_info_outlined" />
 
         <TextView
-            android:id="@+id/data_accuracy_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
