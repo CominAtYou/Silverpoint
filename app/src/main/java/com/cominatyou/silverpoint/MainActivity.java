@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.startWorkerLayout.setOnClickListener(v -> {
             WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.checkStatus);
-            Snackbar.make(view, "Worker started!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(binding.snackbarCoordinator, "Worker started!", Snackbar.LENGTH_LONG).show();
         });
 
         binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
