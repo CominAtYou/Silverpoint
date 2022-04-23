@@ -109,11 +109,8 @@ public class DebugPanel extends AppCompatActivity {
         });
 
         binding.scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-//            final Rect actualPosition = new Rect();
-//            binding.viewTitle.getGlobalVisibleRect(actualPosition);
-//            final Rect screen = new Rect(0, 0, Resources.getSystem().getDisplayMetrics().widthPixels, Resources.getSystem().getDisplayMetrics().heightPixels);
-//
-            if (scrollY < 260) {
+            // Wait for title to be able to be un/eclipsed by action bar
+            if (scrollY < 260 || oldScrollY > scrollY && scrollY < 410) {
                 actionBar.hide();
             }
             else {

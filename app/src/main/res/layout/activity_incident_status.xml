@@ -29,12 +29,13 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="38sp"
             android:fontFamily="@font/ps_regular"
+            android:textColor="@color/text"
             android:text="@string/active_incident"
             android:layout_marginTop="112dp"
             android:id="@+id/activity_title"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/details_section_header"
             style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,13 +48,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/incident_title_layout"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="4dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/details_section_header">
 
             <TextView
                 android:id="@+id/incident_title_title"
@@ -71,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
                 android:text="@string/loading"
                 app:layout_constraintStart_toStartOf="@+id/incident_title_title"
                 app:layout_constraintTop_toBottomOf="@+id/incident_title_title" />
@@ -79,7 +81,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/incident_description_layout"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="80dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,6 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
                 android:text="@string/tap_to_view"
                 app:layout_constraintStart_toStartOf="@+id/incident_description_title"
                 app:layout_constraintTop_toBottomOf="@+id/incident_description_title" />
@@ -110,7 +113,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/last_updated_layout"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="80dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
                 android:text="@string/just_a_sec"
                 app:layout_constraintStart_toStartOf="@+id/last_updated_title"
                 app:layout_constraintTop_toBottomOf="@+id/last_updated_title" />
@@ -187,6 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/gs_text_regular"
             android:text="@string/incident_data_accuracy_disclaimer"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
