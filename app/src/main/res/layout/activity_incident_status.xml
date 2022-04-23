@@ -8,24 +8,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="38sp"
+            android:fontFamily="@font/ps_regular"
+            android:text="@string/active_incident"
+            android:layout_marginTop="112dp"
+            android:id="@+id/activity_title"/>
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/details_section_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_title" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/incident_title_layout"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="78dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <TextView
                 android:id="@+id/incident_title_title"
                 style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/incident_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +70,7 @@
                 android:id="@+id/incident_title_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="@string/loading"
                 app:layout_constraintStart_toStartOf="@+id/incident_title_title"
                 app:layout_constraintTop_toBottomOf="@+id/incident_title_title" />
@@ -42,7 +79,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/incident_description_layout"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="78dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +92,8 @@
                 style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/latest_update_info"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,6 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="@string/tap_to_view"
                 app:layout_constraintStart_toStartOf="@+id/incident_description_title"
                 app:layout_constraintTop_toBottomOf="@+id/incident_description_title" />
@@ -72,7 +110,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/last_updated_layout"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="78dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +122,8 @@
                 style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/last_updated"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -94,6 +132,7 @@
                 android:id="@+id/last_updated_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="@string/just_a_sec"
                 app:layout_constraintStart_toStartOf="@+id/last_updated_title"
                 app:layout_constraintTop_toBottomOf="@+id/last_updated_title" />
@@ -103,7 +142,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_on_statuspage_layout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="56dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +154,7 @@
                 style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
+                android:layout_marginStart="24dp"
                 android:text="@string/view_incident_on_statuspage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,40 +170,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last_updated_layout" />
 
-        <View
-            android:id="@+id/divider6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_on_statuspage_layout" />
-
         <ImageView
             android:id="@+id/info_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="24dp"
             android:layout_marginBottom="12dp"
             android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider6"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/view_on_statuspage_layout"
             app:srcCompat="@drawable/ic_info_outlined" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/incident_data_accuracy_disclaimer"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/info_icon"
-            app:layout_constraintTop_toTopOf="@+id/info_icon" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

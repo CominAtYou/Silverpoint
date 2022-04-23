@@ -9,13 +9,12 @@ import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.cominatyou.silverpoint.util.RequestQueueSingleton;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
 public class GetStatus {
-    protected static JSONObject getSync(Context context) {
+    public static JSONObject getSync(Context context) {
         RequestQueue queue = RequestQueueSingleton.getInstance(context).getQueue();
         SharedPreferences sharedPreferences = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         RequestFuture<String> mRequestFuture = RequestFuture.newFuture();

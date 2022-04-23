@@ -2,15 +2,13 @@ package com.cominatyou.silverpoint.incidentstatuspanel;
 
 import static com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusPanelUtil.update;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.view.TouchDelegate;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +16,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.cominatyou.silverpoint.databinding.ActivityIncidentStatusBinding;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
-import com.cominatyou.silverpoint.util.DateUtil;
+import com.google.android.material.color.DynamicColors;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 public class IncidentStatusActivity extends AppCompatActivity {
@@ -42,14 +37,33 @@ public class IncidentStatusActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DynamicColors.applyIfAvailable(this);
         binding = ActivityIncidentStatusBinding.inflate(getLayoutInflater());
-        final View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
+
         activityContext = this;
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
         Objects.requireNonNull(getSupportActionBar()).setTitle("Active incident");
+
+        // Make the back button easier to hit
+        final View parent = (View) binding.backButton.getParent();
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            binding.backButton.getHitRect(rect);
+            rect.top -= 100;    // increase top hit area
+            rect.left -= 100;   // increase left hit area
+            rect.bottom += 50; // increase bottom hit area
+            rect.right += 50;  // increase right hit area
+            parent.setTouchDelegate(new TouchDelegate(rect, binding.backButton));
+        });
+
+        binding.backButton.setOnClickListener(_s -> finish());
 
         update(getApplicationContext(), binding, this);
         IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+
     }
 }

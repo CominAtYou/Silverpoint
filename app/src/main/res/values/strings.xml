@@ -16,4 +16,9 @@
     <string name="debug">Debug</string>
     <string name="debug_panel_description">Various settings and info for debugging the app</string>
     <string name="incident_data_accuracy_disclaimer">Incident data is accurate within 15 minutes</string>
+    <string name="clear_shared_preferences">Clear Shared Preferences</string>
+    <string name="clear_shared_preferences_description">Clear the Shared Preferences for the current incident</string>
+    <string name="active_incident">Active Incident</string>
+    <string name="details_section_header">Details</string>
+    <string name="worker_section_header">Worker</string>
 </resources>

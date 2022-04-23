@@ -31,8 +31,7 @@ public class NotificationUtil {
                 .setContentIntent(activityPendingIntent)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
                 .setColor(context.getColor(R.color.silverpoint_light))
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setAutoCancel(true);
 
         NotificationChannels.createActiveIncidentChannel(context);
         NotificationManagerCompat.from(context).notify(1, builder.build());
@@ -50,8 +49,7 @@ public class NotificationUtil {
                         .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
-                .setColor(context.getColor(R.color.silverpoint_light))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setColor(context.getColor(R.color.silverpoint_light));
 
         NotificationChannels.createActiveIncidentChannel(context);
         NotificationManagerCompat.from(context).notify(1, builder.build());
@@ -69,8 +67,7 @@ public class NotificationUtil {
                         .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
-                .setColor(context.getColor(R.color.silverpoint_light))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setColor(context.getColor(R.color.silverpoint_light));
 
         NotificationChannels.createAvailableUpdateChannel(context);
         NotificationManagerCompat.from(context).notify(2, builder.build());

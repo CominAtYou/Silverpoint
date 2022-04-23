@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="info_title">@android:color/white</color>
+    <color name="text">@android:color/white</color>
+    <color name="swipe_refresh_color">@color/silverpoint_dark</color>
     <color name="text_disabled">#333333</color>
 </resources>

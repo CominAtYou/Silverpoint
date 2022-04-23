@@ -32,10 +32,10 @@ public class UpdateChecker {
                 JSONObject response = new JSONObject(rsp);
                 final String newVersion = response.getString("version");
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && !response.getBoolean("breaking")) {
-                    Snackbar.make(binding.snackbarCoordinator, String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> context.startActivity(downloadIntent)).show();
+                    Snackbar.make(binding.getRoot(), String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> context.startActivity(downloadIntent)).show();
                 }
                 else if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking")) {
-                    Snackbar.make(binding.snackbarCoordinator, "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> context.startActivity(downloadIntent)).show();
+                    Snackbar.make(binding.getRoot(), "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> context.startActivity(downloadIntent)).show();
                     final TextView[] buttonTitles = {binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.debugTitle};
                     for (TextView titleText : buttonTitles) {
                         titleText.setTextColor(context.getColor(R.color.grey_300));

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -18,7 +17,12 @@ import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 import com.cominatyou.silverpoint.notifications.NotificationChannels;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
+import com.cominatyou.silverpoint.util.DiscordQueryResult;
+import com.cominatyou.silverpoint.util.NonWorkerDiscordStatusQuerier;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -42,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DynamicColors.applyIfAvailable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         /*
         *   Create notification channels as soon as possible so user is able to
@@ -67,11 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding.startWorkerLayout.setOnClickListener(v -> {
             WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.checkStatus);
-            Snackbar.make(binding.snackbarCoordinator, "Worker started!", Snackbar.LENGTH_LONG).show();
+            final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Worker started!", Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
+            snackbar.show();
         });
 
         binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
         binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
+
         if (ActiveIncidentUtil.inProgress(getApplicationContext())) {
             binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.info_title));
             binding.viewActiveIncidentDescription.setText(ActiveIncidentUtil.getTitle(getApplicationContext()));
@@ -82,15 +92,31 @@ public class MainActivity extends AppCompatActivity {
             binding.viewActiveIncidentDescription.setText(R.string.there_currently_isn_t_an_active_incident);
         }
         binding.viewActiveIncidentLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), IncidentStatusActivity.class);
+            final Intent intent = new Intent(getApplicationContext(), IncidentStatusActivity.class);
             startActivity(intent);
         });
 
         binding.debugLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
+            final Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
             startActivity(intent);
         });
-        IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
+        final IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+
+        binding.swipeRefreshLayout.setColorSchemeColors(getColor(R.color.swipe_refresh_color));
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Run in a new thread because running network code on the UI thread is an abhorrent idea
+            new Thread(() -> {
+                DiscordQueryResult result = NonWorkerDiscordStatusQuerier.run(getApplicationContext());
+
+                if (result != DiscordQueryResult.SUCCESS) runOnUiThread(() -> {
+                    final String message = result == DiscordQueryResult.FAILURE ? "Something went wrong. Give it a try later." : "You'll need to update the app before you can do this.";
+                    final Snackbar snackbar = Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG);
+                    snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
+                    snackbar.show();
+                });
+                runOnUiThread(() -> binding.swipeRefreshLayout.setRefreshing(false));
+            }).start();
+        });
     }
 }
