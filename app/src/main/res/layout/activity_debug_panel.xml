@@ -1,384 +1,395 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DebugPanel"
-    android:id="@+id/scroll_view">
+    tools:context=".DebugPanel">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            android:background="@color/collapsing_toolbar_background"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.TitleLarge"
+            app:collapsedTitleTextAppearance="@style/ThemeOverlay.App.ToolbarText"
+            app:expandedTitleMarginStart="24dp">
 
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="@string/debug"
+                android:elevation="0dp"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                android:id="@+id/back_button"/>
 
-        <TextView
-            android:id="@+id/view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="112dp"
-            android:fontFamily="@font/ps_regular"
-            android:text="@string/debug"
-            android:textSize="38sp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/text"
-            app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <TextView
-            android:id="@+id/apiEndpointTextView"
-            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/gs_text_regular"
-            android:text="API Endpoint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_title"
-            tools:ignore="HardcodedText" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/debugSwitch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/ps_regular"
-            android:text="@string/enable_debug_mode"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/apiEndpointTextView"
-            app:layout_constraintTop_toBottomOf="@+id/apiEndpointTextView" />
-
-        <TextView
-            android:id="@+id/worker_header"
-            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/gs_text_regular"
-            android:text="@string/worker_section_header"
-            app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
-            app:layout_constraintTop_toBottomOf="@id/debugSwitch"/>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/worker_last_ran_layout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="4dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/worker_header">
+            android:layout_height="wrap_content">
+
 
             <TextView
-                android:id="@+id/last_ran_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:id="@+id/apiEndpointTextView"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Last ran"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:fontFamily="@font/gs_text_regular"
+                android:text="API Endpoint"
+                android:layout_marginTop="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/last_ran_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="N/A"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/last_ran_header"
-                app:layout_constraintTop_toBottomOf="@+id/last_ran_header"
-                tools:ignore="HardcodedText" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/worker_result_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/worker_last_ran_layout">
-
-            <TextView
-                android:id="@+id/worker_result_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Result"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/worker_result_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="N/A"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/worker_result_header"
-                app:layout_constraintTop_toBottomOf="@+id/worker_result_header"
-                tools:ignore="HardcodedText" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/last_incident_id_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="4dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shared_preferences_header">
-
-            <TextView
-                android:id="@+id/latest_incident_id_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Latest incident ID"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/latest_incident_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/latest_incident_id_header"
-                app:layout_constraintTop_toBottomOf="@+id/latest_incident_id_header"
                 tools:ignore="HardcodedText"
-                tools:text="3bf2c43a" />
+                tools:layout_editor_absoluteY="205dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/latest_incident_update_id_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/last_incident_id_layout">
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/debugSwitch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/ps_regular"
+                android:text="@string/enable_debug_mode"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/apiEndpointTextView"
+                app:layout_constraintTop_toBottomOf="@+id/apiEndpointTextView" />
 
             <TextView
-                android:id="@+id/latest_incident_update_id_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:id="@+id/worker_header"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Latest incident update ID"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gs_text_regular"
+                android:text="@string/worker_section_header"
+                app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
+                app:layout_constraintTop_toBottomOf="@id/debugSwitch"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/worker_last_ran_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/worker_header">
+
+                <TextView
+                    android:id="@+id/last_ran_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Last ran"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/last_ran_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="N/A"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/last_ran_header"
+                    app:layout_constraintTop_toBottomOf="@+id/last_ran_header"
+                    tools:ignore="HardcodedText" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/worker_result_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/worker_last_ran_layout">
+
+                <TextView
+                    android:id="@+id/worker_result_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Result"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/worker_result_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="N/A"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/worker_result_header"
+                    app:layout_constraintTop_toBottomOf="@+id/worker_result_header"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/last_incident_id_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shared_preferences_header">
+
+                <TextView
+                    android:id="@+id/latest_incident_id_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Latest incident ID"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/latest_incident_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="null"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/latest_incident_id_header"
+                    app:layout_constraintTop_toBottomOf="@+id/latest_incident_id_header"
+                    tools:ignore="HardcodedText"
+                    tools:text="3bf2c43a" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/latest_incident_update_id_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/last_incident_id_layout">
+
+                <TextView
+                    android:id="@+id/latest_incident_update_id_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Latest incident update ID"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/latest_incident_update_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="null"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/latest_incident_update_id_header"
+                    app:layout_constraintTop_toBottomOf="@+id/latest_incident_update_id_header"
+                    tools:ignore="HardcodedText"
+                    tools:text="0fcjzks7f" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clear_shared_preferences_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/latest_incident_update_id_layout">
+
+                <TextView
+                    android:id="@+id/clear_shared_preferences_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/clear_shared_preferences"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/clear_shared_preferences_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="@string/clear_shared_preferences_description"
+                    app:layout_constraintStart_toStartOf="@+id/clear_shared_preferences_header"
+                    app:layout_constraintTop_toBottomOf="@+id/clear_shared_preferences_header" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/version_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/app_info_section_header">
+
+                <TextView
+                    android:id="@+id/version_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Version"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/version_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="unknown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/version_header"
+                    app:layout_constraintTop_toBottomOf="@+id/version_header"
+                    tools:ignore="HardcodedText"
+                    tools:text="1.0.0 DEBUG, 1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/build_timestamp_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/version_layout">
+
+                <TextView
+                    android:id="@+id/build_timestamp_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/ps_regular"
+                    android:text="Build timestamp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/build_timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="unknown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/build_timestamp_header"
+                    app:layout_constraintTop_toBottomOf="@+id/build_timestamp_header"
+                    tools:ignore="HardcodedText"
+                    tools:text="December 21, 2020 8:15 PM CST" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <TextView
+                android:id="@+id/shared_preferences_header"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gs_text_regular"
+                android:text="Shared Preferences"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
+                app:layout_constraintTop_toBottomOf="@id/worker_result_layout"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/latest_incident_update_id"
+                android:id="@+id/app_info_section_header"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/gs_text_regular"
-                android:text="null"
+                android:text="App Info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/latest_incident_update_id_header"
-                app:layout_constraintTop_toBottomOf="@+id/latest_incident_update_id_header"
-                tools:ignore="HardcodedText"
-                tools:text="0fcjzks7f" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clear_shared_preferences_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/latest_incident_update_id_layout">
-
-            <TextView
-                android:id="@+id/clear_shared_preferences_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/clear_shared_preferences"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/clear_shared_preferences_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="@string/clear_shared_preferences_description"
-                app:layout_constraintStart_toStartOf="@+id/clear_shared_preferences_header"
-                app:layout_constraintTop_toBottomOf="@+id/clear_shared_preferences_header" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/version_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="4dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_info_section_header">
-
-            <TextView
-                android:id="@+id/version_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Version"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
+                app:layout_constraintTop_toBottomOf="@id/clear_shared_preferences_layout"
                 tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/version_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="unknown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/version_header"
-                app:layout_constraintTop_toBottomOf="@+id/version_header"
-                tools:ignore="HardcodedText"
-                tools:text="1.0.0 DEBUG, 1" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/build_timestamp_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/version_layout">
-
-            <TextView
-                android:id="@+id/build_timestamp_header"
-                style="@style/TextAppearance.AppCompat.InfoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="Build timestamp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/build_timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="unknown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/build_timestamp_header"
-                app:layout_constraintTop_toBottomOf="@+id/build_timestamp_header"
-                tools:ignore="HardcodedText"
-                tools:text="December 21, 2020 8:15 PM CST" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-
-        <TextView
-            android:id="@+id/shared_preferences_header"
-            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/gs_text_regular"
-            android:text="Shared Preferences"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
-            app:layout_constraintTop_toBottomOf="@id/worker_result_layout"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/app_info_section_header"
-            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/gs_text_regular"
-            android:text="App Info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
-            app:layout_constraintTop_toBottomOf="@id/clear_shared_preferences_layout"
-            tools:ignore="HardcodedText" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

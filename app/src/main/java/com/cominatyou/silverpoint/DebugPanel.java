@@ -43,10 +43,6 @@ public class DebugPanel extends AppCompatActivity {
         final View view = binding.getRoot();
         setContentView(view);
 
-        ActionBar actionBar = Objects.requireNonNull(getSupportActionBar());
-        actionBar.setTitle("Debug");
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.hide();
 
         SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
         String selectedEndpoint = configSharedPreferences.getString("selectedEndpoint", null);
@@ -56,18 +52,6 @@ public class DebugPanel extends AppCompatActivity {
             binding.debugSwitch.toggle();
             binding.clearSharedPreferencesLayout.setVisibility(View.VISIBLE);
         }
-
-        // Make the back button easier to hit
-        final View parent = (View) binding.backButton.getParent();
-        parent.post(() -> {
-            final Rect rect = new Rect();
-            binding.backButton.getHitRect(rect);
-            rect.top -= 100;    // increase top hit area
-            rect.left -= 100;   // increase left hit area
-            rect.bottom += 50; // increase bottom hit area
-            rect.right += 50;  // increase right hit area
-            parent.setTouchDelegate(new TouchDelegate(rect, binding.backButton));
-        });
 
         binding.debugSwitch.setOnCheckedChangeListener((v, _t) -> {
             if (v.isChecked()) {
@@ -108,15 +92,6 @@ public class DebugPanel extends AppCompatActivity {
             snackbar.show();
         });
 
-        binding.scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            // Wait for title to be able to be un/eclipsed by action bar
-            if (scrollY < 260 || oldScrollY > scrollY && scrollY < 410) {
-                actionBar.hide();
-            }
-            else {
-                actionBar.show();
-            }
-        });
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="swipe_refresh_color">@android:color/system_accent1_500</color>
+    <color name="collapsing_toolbar_background">@android:color/system_neutral1_50</color>
+    <color name="status_bar">@android:color/system_accent1_50</color>
 </resources>

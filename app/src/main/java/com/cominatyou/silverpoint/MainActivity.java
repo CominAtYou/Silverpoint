@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
         /*
         *   Create notification channels as soon as possible so user is able to
         *   customize them to their liking as soon as possible.
