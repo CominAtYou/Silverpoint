@@ -38,7 +38,7 @@ public class DebugPanel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DynamicColors.applyIfAvailable(this);
+        DynamicColors.applyToActivityIfAvailable(this);
         final ActivityDebugPanelBinding binding = ActivityDebugPanelBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
         setContentView(view);

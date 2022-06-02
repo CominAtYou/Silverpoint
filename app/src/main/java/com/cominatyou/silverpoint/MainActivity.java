@@ -22,8 +22,6 @@ import com.cominatyou.silverpoint.util.NonWorkerDiscordStatusQuerier;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DynamicColors.applyIfAvailable(this);
+        DynamicColors.applyToActivityIfAvailable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

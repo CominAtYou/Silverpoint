@@ -37,15 +37,11 @@ public class IncidentStatusActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DynamicColors.applyIfAvailable(this);
+        DynamicColors.applyToActivityIfAvailable(this);
         binding = ActivityIncidentStatusBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         activityContext = this;
-
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Active incident");
 
         // Make the back button easier to hit
         final View parent = (View) binding.backButton.getParent();
