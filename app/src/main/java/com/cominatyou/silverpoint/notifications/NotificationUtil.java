@@ -13,6 +13,8 @@ import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 
 public class NotificationUtil {
     public static void send(String title, String description, String buttonText, String shortlink, Context context) {
+        if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -37,6 +39,8 @@ public class NotificationUtil {
         NotificationManagerCompat.from(context).notify(1, builder.build());
     }
     public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, Context context) {
+        if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -55,6 +59,8 @@ public class NotificationUtil {
         NotificationManagerCompat.from(context).notify(1, builder.build());
     }
     public static void sendUpdateNotification(String title, String description, String buttonText, String shortlink, Context context) {
+        if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);

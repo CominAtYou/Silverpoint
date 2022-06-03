@@ -15,6 +15,8 @@ import androidx.work.WorkManager;
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
 import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 import com.cominatyou.silverpoint.notifications.NotificationChannels;
+import com.cominatyou.silverpoint.notifications.snoozing.BottomSheet;
+import com.cominatyou.silverpoint.notifications.snoozing.SnoozeNotificationsLayoutClick;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 import com.cominatyou.silverpoint.util.DiscordQueryResult;
@@ -92,10 +94,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        binding.snoozeNotificationsLayout.setOnClickListener(v -> SnoozeNotificationsLayoutClick.onClick(getSupportFragmentManager(), this));
+
         binding.debugLayout.setOnClickListener(v -> {
             final Intent intent = new Intent(getApplicationContext(), DebugPanel.class);
             startActivity(intent);
         });
+
         final IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 

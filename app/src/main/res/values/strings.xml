@@ -21,4 +21,12 @@
     <string name="active_incident">Active Incident</string>
     <string name="details_section_header">Details</string>
     <string name="worker_section_header">Worker</string>
+    <string name="for_how_long">For how long?</string>
+    <string name="until_tomorrow">Until tomorrow</string>
+    <string name="a_month">A month</string>
+    <string name="a_week">A week</string>
+    <string name="until_i_turn_them_back_on">Until I turn them back on</string>
+    <string name="three_days">Three days</string>
+    <string name="snooze_notifications">Snooze notifications</string>
+    <string name="snooze_notifications_description">Pause notifications for a certain amount of time</string>
 </resources>
