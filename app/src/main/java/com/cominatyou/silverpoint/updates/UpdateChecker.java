@@ -41,11 +41,11 @@ public class UpdateChecker {
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
 
-                    final TextView[] buttonTitles = {binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.debugTitle};
+                    final TextView[] buttonTitles = {binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.snoozeNotificationsTitle, binding.debugTitle};
                     for (TextView titleText : buttonTitles) {
-                        titleText.setTextColor(context.getColor(R.color.grey_300));
+                        titleText.setTextColor(context.getColor(R.color.text_disabled));
                     }
-                    final View[] buttonElements = {binding.startWorkerLayout, binding.startWorkerDescription, binding.viewActiveIncidentLayout, binding.debugLayout, binding.debugDescription};
+                    final View[] buttonElements = {binding.startWorkerLayout, binding.startWorkerDescription, binding.viewActiveIncidentLayout, binding.snoozeNotificationsLayout, binding.snoozeNotificationsDescription, binding.debugLayout, binding.debugDescription};
                     for (View buttonElement : buttonElements) {
                         buttonElement.setEnabled(false);
                     }

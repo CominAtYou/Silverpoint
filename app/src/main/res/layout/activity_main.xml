@@ -138,6 +138,7 @@
                     android:text="@string/snooze_notifications_description"
                     app:layout_constraintStart_toStartOf="@id/snooze_notifications_title"
                     android:layout_marginTop="2dp"
+                    android:id="@+id/snooze_notifications_description"
                     app:layout_constraintTop_toBottomOf="@id/snooze_notifications_title"/>
 
 

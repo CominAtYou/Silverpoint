@@ -5,7 +5,7 @@
     <color name="white">#FFFFFF</color>
     <color name="silverpoint_light">#D0165D</color>
     <color name="silverpoint_dark">#900B5E</color>
-    <color name="text_disabled">#E0E0E0</color>
+    <color name="text_disabled">#B0B0B0</color>
     <color name="info_title">#202124</color>
     <color name="swipe_refresh_color">@color/silverpoint_light</color>
     <color name="collapsing_toolbar_background">@android:color/transparent</color>

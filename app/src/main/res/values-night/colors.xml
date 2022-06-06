@@ -3,6 +3,6 @@
     <color name="info_title">@android:color/white</color>
     <color name="text">@android:color/white</color>
     <color name="swipe_refresh_color">@color/silverpoint_light</color>
-    <color name="text_disabled">#333333</color>
+    <color name="text_disabled">#69666A</color>
     <color name="collapsing_toolbar_background">@android:color/transparent</color>
 </resources>
