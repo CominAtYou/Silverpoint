@@ -87,7 +87,6 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
     protected void onResume() {
         super.onResume();
         if (shouldRunOnResume) {
-
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

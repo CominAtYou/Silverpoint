@@ -28,7 +28,6 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
 
-
         binding = ActivityWelcomeScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

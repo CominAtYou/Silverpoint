@@ -132,13 +132,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/until_turned_back_on_layout"/>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
