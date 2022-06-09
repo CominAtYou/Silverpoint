@@ -33,6 +33,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         binding.getStartedButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), NotificationsPromptActivity.class)));
 
+        // Destroy the activity when setup completes so the user can't use the back button to return to it
         final IntentFilter filter = new IntentFilter("SETUP_COMPLETED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 

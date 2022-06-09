@@ -1,5 +1,7 @@
 package com.cominatyou.silverpoint.onboarding;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,10 +23,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class NotificationsPromptActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
-    @SuppressWarnings("all")
     private ActivityNotificationsPromptBinding binding;
     private boolean shouldRunOnResume = false;
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -33,15 +35,15 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED"));
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED")); // Notify the welcome screen that setup is done
             finish();
         }
         else {
-            if (shouldShowRequestPermissionRationale("android.permission.POST_NOTIFICATIONS")) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. You'll need to enable them to use the app.", 7000);
                 snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                 snackbar.setAction("Enable", v -> {
-                    requestPermissions(new String[]{ "android.permission.POST_NOTIFICATIONS" }, 0x1);
+                    requestPermissions(new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 0x1);
                     snackbar.dismiss();
                 });
                 snackbar.show();
@@ -62,6 +64,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
         }
     }
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +77,10 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
             if (NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled()) {
                 getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED"));
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED")); // Notify the welcome screen that setup is done
                 finish();
             }
-            else requestPermissions(new String[]{ "android.permission.POST_NOTIFICATIONS" }, 0x1);
+            else requestPermissions(new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 0x1);
         });
 
         binding.buttonBack.setOnClickListener(v -> finish());
