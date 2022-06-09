@@ -39,10 +39,10 @@ public class DebugPanel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
+
         final ActivityDebugPanelBinding binding = ActivityDebugPanelBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
         setContentView(view);
-
 
         SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
         String selectedEndpoint = configSharedPreferences.getString("selectedEndpoint", null);

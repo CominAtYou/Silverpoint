@@ -15,8 +15,8 @@ import androidx.work.WorkManager;
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
 import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 import com.cominatyou.silverpoint.notifications.NotificationChannels;
-import com.cominatyou.silverpoint.notifications.snoozing.BottomSheet;
 import com.cominatyou.silverpoint.notifications.snoozing.SnoozeNotificationsLayoutClick;
+import com.cominatyou.silverpoint.onboarding.WelcomeScreen;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 import com.cominatyou.silverpoint.util.DiscordQueryResult;
@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DynamicColors.applyToActivityIfAvailable(this);
+
+        if (!getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).getBoolean("completedsetup", false)) {
+            startActivity(new Intent(getApplicationContext(), WelcomeScreen.class));
+            finish();
+        }
+
+        
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -60,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences updateSharedPreferences = getApplicationContext().getSharedPreferences("updates", Context.MODE_PRIVATE);
         if (updateSharedPreferences.getInt("lastSeenAppVersion", BuildConfig.VERSION_CODE) < BuildConfig.VERSION_CODE) {
-            updateSharedPreferences.edit()
-                    .putBoolean("alerted", false)
-                    .putBoolean("breakingUpdateAvailable", false)
-                    .apply();
+            updateSharedPreferences.edit().remove("alerted").remove("breakingUpdateAvailable").apply();
         }
         updateSharedPreferences.edit().putInt("lastSeenAppVersion", BuildConfig.VERSION_CODE).apply();
 

@@ -38,6 +38,7 @@ public class IncidentStatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
+
         binding = ActivityIncidentStatusBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

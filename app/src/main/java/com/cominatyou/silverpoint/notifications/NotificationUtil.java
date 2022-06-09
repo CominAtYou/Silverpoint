@@ -14,6 +14,7 @@ import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
 public class NotificationUtil {
     public static void send(String title, String description, String buttonText, String shortlink, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
@@ -40,6 +41,7 @@ public class NotificationUtil {
     }
     public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));
@@ -60,6 +62,7 @@ public class NotificationUtil {
     }
     public static void sendUpdateNotification(String title, String description, String buttonText, String shortlink, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
         linkIntent.setData(Uri.parse(shortlink));

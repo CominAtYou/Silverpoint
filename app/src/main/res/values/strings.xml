@@ -28,4 +28,10 @@
     <string name="three_days">For three days</string>
     <string name="snooze_notifications">Snooze notifications</string>
     <string name="snooze_notifications_description">Pause notifications for a certain amount of time</string>
+    <string name="welcome_to_silverpoint">Welcome to Silverpoint</string>
+    <string name="welcome_page_description">A simple app for receiving notifications when online services go down.</string>
+    <string name="get_started">Get Started</string>
+    <string name="enable_notifications">Enable notifications</string>
+    <string name="enable_notifications_explanation">We\'ll need you to enable the notifications permission so we can alert you when services go down.</string>
+    <string name="back">Back</string>
 </resources>
