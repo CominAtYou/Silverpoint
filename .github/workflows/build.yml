@@ -1,6 +1,11 @@
 name: build
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**.java'
+      - '**.gradle'
+      - '**.xml'
 
 jobs:
   build:
@@ -15,17 +20,3 @@ jobs:
       with:
         name: lint-report
         path: /home/runner/work/Silverpoint/Silverpoint/app/build/reports/lint-results-debug.html
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0.1
-    - name: Post Result
-      if: failure()
-      env:
-        JOB_STATUS: ${{ job.status }}
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-        HOOK_OS_NAME: ${{ runner.os }}
-        WORKFLOW_NAME: ${{ github.workflow }}
-      run: |
-        git clone https://github.com/CominAtYou/github-actions-discord-webhook webhook
-        bash webhook/send.sh $JOB_STATUS $WEBHOOK_URL
-      shell: bash
