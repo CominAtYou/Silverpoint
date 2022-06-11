@@ -1,15 +1,17 @@
-package com.cominatyou.silverpoint.util;
+package com.cominatyou.silverpoint.remoteendpoint;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.cominatyou.silverpoint.BuildConfig;
-import com.cominatyou.silverpoint.GetStatus;
 import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.notifications.NotificationUtil;
+import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
+import com.cominatyou.silverpoint.util.RequestQueueSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,10 @@ public class NonWorkerDiscordStatusQuerier {
         request.setShouldCache(false);
         queue.add(request);
 
-        if (updateSharedPreferences.getBoolean("breakingUpdateAvailable", false)) return DiscordQueryResult.UPDATE_REQUIRED;
+        if (updateSharedPreferences.getBoolean("breakingUpdateAvailable", false)) {
+            Log.d("SwipeToRefreshThread", "A breaking update is available, stopping");
+            return DiscordQueryResult.UPDATE_REQUIRED;
+        }
 
         final JSONObject status = GetStatus.getSync(context);
         if (status == null) {

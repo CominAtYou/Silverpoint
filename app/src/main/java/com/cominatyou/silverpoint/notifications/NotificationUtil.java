@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.cominatyou.silverpoint.R;
-import com.cominatyou.silverpoint.incidentstatuspanel.IncidentStatusActivity;
+import com.cominatyou.silverpoint.IncidentStatusActivity;
 
 public class NotificationUtil {
     public static void send(String title, String description, String buttonText, String shortlink, Context context) {

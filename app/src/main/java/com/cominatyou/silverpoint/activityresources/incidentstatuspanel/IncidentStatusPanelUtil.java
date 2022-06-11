@@ -1,4 +1,4 @@
-package com.cominatyou.silverpoint.incidentstatuspanel;
+package com.cominatyou.silverpoint.activityresources.incidentstatuspanel;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class IncidentStatusPanelUtil {
-    protected static void update(Context context, ActivityIncidentStatusBinding binding, Context activityContext) {
+    public static void update(Context context, ActivityIncidentStatusBinding binding, Context activityContext) {
         binding.incidentTitleValue.setText(ActiveIncidentUtil.getTitle(context));
         binding.incidentDescriptionLayout.setOnClickListener(v -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activityContext)

@@ -143,14 +143,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/last_updated_layout"
-            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_on_statuspage_layout"
@@ -164,24 +156,17 @@
             app:layout_constraintTop_toBottomOf="@+id/last_updated_layout">
 
             <TextView
-                style="@style/TextAppearance.AppCompat.InfoTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="@string/view_incident_on_statuspage"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_on_statuspage_layout" />
 
         <ImageView
             android:id="@+id/info_icon"

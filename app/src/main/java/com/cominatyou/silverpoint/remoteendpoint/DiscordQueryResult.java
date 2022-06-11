@@ -1,4 +1,4 @@
-package com.cominatyou.silverpoint.util;
+package com.cominatyou.silverpoint.remoteendpoint;
 
 public enum DiscordQueryResult {
     SUCCESS,
