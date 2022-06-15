@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UpdateChecker {
+public class UpdateChecker { // TODO: Add logging
     public static void checkForUpdates(ActivityMainBinding binding, Context context) {
         SharedPreferences updatePreferences = context.getSharedPreferences("updates", Context.MODE_PRIVATE);
         final RequestQueue queue = RequestQueueSingleton.getInstance(context).getQueue();

@@ -29,8 +29,8 @@ public class SnoozeNotificationsLayoutClick {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
                 .setMessage("Notifications are currently snoozed" + formattedDate + ". Do you want to turn them back on?")
                 .setTitle("Re-enable notifications?")
-                .setPositiveButton(context.getString(android.R.string.yes), (dialog, which) -> sharedPreferences.edit().remove("notificationsnooze").apply())
-                .setNegativeButton(context.getString(android.R.string.no), ((dialog, which) -> dialog.dismiss()));
+                .setPositiveButton(context.getString(R.string.yes), (dialog, which) -> sharedPreferences.edit().remove("notificationsnooze").apply())
+                .setNegativeButton(context.getString(R.string.no), ((dialog, which) -> dialog.dismiss()));
         AlertDialog dialog = builder.show();
 
         TextView dialogMessage = dialog.findViewById(android.R.id.message);

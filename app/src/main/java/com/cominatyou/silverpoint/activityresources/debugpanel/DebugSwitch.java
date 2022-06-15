@@ -23,12 +23,12 @@ public class DebugSwitch {
                             + "\n\nUnless you have been asked to, it is highly recommended to stay on the production endpoint for full functionality."
                             + "\n\nContinue anyway?")
                     .setTitle("Hold Up!")
-                    .setPositiveButton(context.getString(android.R.string.yes), (dialog, which) -> {
+                    .setPositiveButton(context.getString(R.string.yes), (dialog, which) -> {
                         Log.d("DebugMode", "Debug mode was enabled");
                         configSharedPreferences.edit().putString("selectedEndpoint", "testing").apply();
                         binding.clearSharedPreferencesLayout.setVisibility(View.VISIBLE);
                     })
-                    .setNegativeButton(context.getString(android.R.string.no), (dialog, which) -> binding.debugSwitch.toggle())
+                    .setNegativeButton(context.getString(R.string.no), (dialog, which) -> binding.debugSwitch.toggle())
                     .setOnCancelListener(dialog -> binding.debugSwitch.toggle());
 
             AlertDialog dialog = builder.show();
