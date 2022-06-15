@@ -24,7 +24,7 @@ public class DebugSwitch {
                             + "\n\nContinue anyway?")
                     .setTitle("Hold Up!")
                     .setPositiveButton(context.getString(R.string.yes), (dialog, which) -> {
-                        Log.d("DebugMode", "Debug mode was enabled");
+                        Log.v("DebugMode", "Debug mode was enabled");
                         configSharedPreferences.edit().putString("selectedEndpoint", "testing").apply();
                         binding.clearSharedPreferencesLayout.setVisibility(View.VISIBLE);
                     })
@@ -42,7 +42,7 @@ public class DebugSwitch {
             dialogTitle.setTypeface(ResourcesCompat.getFont(context, R.font.ps_regular));
         }
         else {
-            Log.d("DebugMode", "Debug mode was enabled; back on a production endpoint");
+            Log.v("DebugMode", "Debug mode was enabled; back on a production endpoint");
             configSharedPreferences.edit().putString("selectedEndpoint", "production").apply();
             binding.clearSharedPreferencesLayout.setVisibility(View.GONE);
         }
@@ -53,14 +53,14 @@ public class DebugSwitch {
         String selectedEndpoint = configSharedPreferences.getString("selectedEndpoint", null);
 
         if (selectedEndpoint == null) {
-            Log.d("DebugMode", "Debug mode has not been set (Shared Preferences entry is null); setting it to off by default");
+            Log.v("DebugMode", "Debug mode has not been set (Shared Preferences entry is null); setting it to off by default");
             configSharedPreferences.edit().putString("selectedEndpoint", "production").apply();
         }
         else if (selectedEndpoint.equals("testing")) {
-            Log.d("DebugMode", "Debug mode is currently on");
+            Log.v("DebugMode", "Debug mode is currently on");
             binding.debugSwitch.toggle();
             binding.clearSharedPreferencesLayout.setVisibility(View.VISIBLE);
         }
-        else Log.d("DebugMode", "Debug mode is currently off");
+        else Log.v("DebugMode", "Debug mode is currently off");
     }
 }

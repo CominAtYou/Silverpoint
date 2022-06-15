@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,24 +29,27 @@ public class UpdateChecker { // TODO: Add logging
         downloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         final StringRequest request = new StringRequest(Request.Method.GET, "https://api.cominatyou.com/silverpoint/updates", rsp -> {
+            Log.v("UpdateChecker", "Got a response!");
             try {
                 JSONObject response = new JSONObject(rsp);
                 final String newVersion = response.getString("version");
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && !response.getBoolean("breaking")) {
+                    Log.v("UpdateChecker", String.format("A new version is available (%s)", response.getString("version")));
                     Snackbar snackbar = Snackbar.make(binding.getRoot(), String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> context.startActivity(downloadIntent));
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
                 }
                 else if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking")) {
+                    Log.v("UpdateChecker", String.format("Breaking update available (%s). Disabling most app functionality until update is installed.", response.getString("version")));
                     Snackbar snackbar = Snackbar.make(binding.getRoot(), "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> context.startActivity(downloadIntent));
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
 
-                    final TextView[] buttonTitles = {binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.snoozeNotificationsTitle, binding.debugTitle};
+                    final TextView[] buttonTitles = { binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.snoozeNotificationsTitle, binding.debugTitle };
                     for (TextView titleText : buttonTitles) {
                         titleText.setTextColor(context.getColor(R.color.text_disabled));
                     }
-                    final View[] buttonElements = {binding.startWorkerLayout, binding.startWorkerDescription, binding.viewActiveIncidentLayout, binding.snoozeNotificationsLayout, binding.snoozeNotificationsDescription, binding.debugLayout, binding.debugDescription};
+                    final View[] buttonElements = { binding.startWorkerLayout, binding.startWorkerDescription, binding.viewActiveIncidentLayout, binding.snoozeNotificationsLayout, binding.snoozeNotificationsDescription, binding.debugLayout, binding.debugDescription };
                     for (View buttonElement : buttonElements) {
                         buttonElement.setEnabled(false);
                     }
@@ -53,10 +57,12 @@ public class UpdateChecker { // TODO: Add logging
                 }
             }
             catch (JSONException e) {
+                Log.e("UpdateChecker", "JSON parser failed");
                 e.printStackTrace();
             }
         }, null);
         request.setShouldCache(false);
         queue.add(request);
+        Log.v("UpdateChecker", "Queued the update endpoint request");
     }
 }

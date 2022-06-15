@@ -21,7 +21,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) { // Start WorkManager.
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log.d("DiscordStatusWorker", "Starting worker");
+            Log.v("DiscordStatusWorker", "Starting worker");
             WorkManager.getInstance(context).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, CHECK_STATUS);
         }
     }

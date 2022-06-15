@@ -34,7 +34,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
         if (requestCode != 0x1) return;
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("NotificationPermissionRequest", "Notification permission was granted");
+            Log.v("NotificationPermissionRequest", "Notification permission was granted");
 
             getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -43,7 +43,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
         }
         else {
             if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                Log.d("NotificationPermissionRequest", "Notification permission was denied");
+                Log.v("NotificationPermissionRequest", "Notification permission was denied");
 
                 final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. You'll need to enable them to use the app.", 7000);
                 snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
@@ -54,7 +54,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
                 snackbar.show();
             }
             else {
-                Log.d("NotificationPermissionRequest", "Device is < SDK 33 and Notifications are off or Android is refusing to present the permission dialog");
+                Log.v("NotificationPermissionRequest", "Device is < SDK 33 and Notifications are off or Android is refusing to present the permission dialog");
 
                 final Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -63,7 +63,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
                 final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. Enable them in Android settings to use the app.", 7000);
                 snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                 snackbar.setAction("Enable", v -> {
-                    Log.d("NotificationPermissionRequest", "Presenting Android notification settings page for app");
+                    Log.v("NotificationPermissionRequest", "Presenting Android notification settings page for app");
                     startActivity(intent);
                     shouldRunOnResume = true;
                 });
@@ -89,7 +89,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
                 finish();
             }
             else {
-                Log.d("NotificationPermissionRequest", "Presenting notification permission request dialog");
+                Log.v("NotificationPermissionRequest", "Presenting notification permission request dialog");
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0x1);
             }
         });
@@ -105,7 +105,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
                 @Override
                 public void run() {
                     if (NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled()) {
-                        Log.d("NotificationPermissionRequest", "Notification permission was granted in Android settings");
+                        Log.v("NotificationPermissionRequest", "Notification permission was granted in Android settings");
                         getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("SETUP_COMPLETED"));

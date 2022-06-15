@@ -14,7 +14,7 @@ public class SwipeRefreshLayout {
     public static void onRefresh(Context context, MainActivity activity, ActivityMainBinding binding) {
         // Run in a new thread because running network code on the UI thread is an abhorrent idea
         new Thread(() -> {
-            Log.d("SwipeToRefreshThread", "Running swipe to refresh callback");
+            Log.v("SwipeToRefreshThread", "Running swipe to refresh callback");
             DiscordQueryResult result = NonWorkerDiscordStatusQuerier.run(context);
 
             if (result != DiscordQueryResult.SUCCESS) activity.runOnUiThread(() -> {

@@ -25,11 +25,11 @@ public class GetStatus {
         request.setShouldCache(false);
         queue.add(request);
         try {
-            Log.d("SwipeToRefreshThread", "Successfully got a JSON response");
+            Log.v("SwipeToRefreshThread", "Successfully got a JSON response");
             return new JSONObject(mRequestFuture.get(10, TimeUnit.SECONDS));
         }
         catch (Exception e) {
-            Log.d("SwipeToRefreshThread", "HTTP request failed");
+            Log.e("SwipeToRefreshThread", "HTTP request failed");
             e.printStackTrace();
             return null;
         }

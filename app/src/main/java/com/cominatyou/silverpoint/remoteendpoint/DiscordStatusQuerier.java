@@ -33,7 +33,7 @@ public class DiscordStatusQuerier extends Worker {
         final SharedPreferences configSharedPreferences = getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE);
         final SharedPreferences updateSharedPreferences = getApplicationContext().getSharedPreferences("updates", Context.MODE_PRIVATE);
 
-        Log.d("DiscordStatusWorker", "Worker has been invoked, starting work");
+        Log.v("DiscordStatusWorker", "Worker has been invoked, starting work");
 
         final StringRequest request = new StringRequest(Request.Method.GET, "https://api.cominatyou.com/silverpoint/updates", rsp -> {
             try {
@@ -102,11 +102,11 @@ public class DiscordStatusQuerier extends Worker {
         catch (Exception e) {
             e.printStackTrace();
             configSharedPreferences.edit().putBoolean("workerSuccess", false).apply();
-            Log.d("DiscordStatusWorker", "Worker failed in the JSON parse/notification step");
+            Log.e("DiscordStatusWorker", "Worker failed in the JSON parse/notification step");
             return Result.failure();
         }
         configSharedPreferences.edit().putBoolean("workerSuccess", true).apply();
-        Log.d("DiscordStatusWorker", "Worker was successful");
+        Log.v("DiscordStatusWorker", "Worker was successful");
         return Result.success();
     }
 }

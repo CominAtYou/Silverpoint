@@ -54,7 +54,7 @@ public class ActiveIncidentUtil {
     }
 
     public static void initializeIncident(Context context, String title, String id, String latestUpdateId, String body, String lastUpdated, String shortlink) {
-        Log.d("ActiveIncident", String.format("A new incident was initialized with title %s and ID %s, and with an update ID of %s", title, id, latestUpdateId));
+        Log.v("ActiveIncident", String.format("A new incident was initialized with title %s and ID %s, and with an update ID of %s", title, id, latestUpdateId));
         getSharedPreferences(context).edit()
                 .putString("title", title)
                 .putString("id", id)
@@ -70,7 +70,7 @@ public class ActiveIncidentUtil {
     }
 
     public static void initializeIncident(Context context, String title, String id) {
-        Log.d("ActiveIncident", String.format("A new incident was initialized with title %s and ID %s", title, id));
+        Log.v("ActiveIncident", String.format("A new incident was initialized with title %s and ID %s", title, id));
         getSharedPreferences(context).edit()
                 .putString("title", title)
                 .putString("id", id)
@@ -78,7 +78,7 @@ public class ActiveIncidentUtil {
     }
 
     public static void clear(Context context) {
-        Log.d("ActiveIncident", "Incident shared preferences were cleared, possibly by user invocation");
+        Log.v("ActiveIncident", "Incident shared preferences were cleared, possibly by user invocation");
         getSharedPreferences(context).edit()
                 .remove("title")
                 .remove("id")

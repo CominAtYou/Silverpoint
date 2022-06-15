@@ -39,7 +39,7 @@ public class NonWorkerDiscordStatusQuerier {
         queue.add(request);
 
         if (updateSharedPreferences.getBoolean("breakingUpdateAvailable", false)) {
-            Log.d("SwipeToRefreshThread", "A breaking update is available, stopping");
+            Log.v("SwipeToRefreshThread", "A breaking update is available, stopping");
             return DiscordQueryResult.UPDATE_REQUIRED;
         }
 
