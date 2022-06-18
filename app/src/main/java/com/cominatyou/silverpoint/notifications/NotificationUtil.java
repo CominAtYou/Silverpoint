@@ -12,7 +12,7 @@ import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.IncidentStatusActivity;
 
 public class NotificationUtil {
-    public static void send(String title, String description, String buttonText, String shortlink, Context context) {
+    public static void send(String title, String description, String buttonText, String shortlink, String channelId, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
@@ -24,7 +24,7 @@ public class NotificationUtil {
         activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "incidents")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(69)
                 .setContentTitle(title)
                 .setContentText(description)
@@ -36,10 +36,10 @@ public class NotificationUtil {
                 .setColor(context.getColor(R.color.silverpoint_light))
                 .setAutoCancel(true);
 
-        NotificationChannels.createActiveIncidentChannel(context);
+        NotificationChannels.createActiveIncidentChannels(context);
         NotificationManagerCompat.from(context).notify(1, builder.build());
     }
-    public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, Context context) {
+    public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, String channelId, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
@@ -47,7 +47,7 @@ public class NotificationUtil {
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "incidents")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(69)
                 .setContentTitle(title)
                 .setContentText(description)
@@ -57,7 +57,7 @@ public class NotificationUtil {
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
                 .setColor(context.getColor(R.color.silverpoint_light));
 
-        NotificationChannels.createActiveIncidentChannel(context);
+        NotificationChannels.createActiveIncidentChannels(context);
         NotificationManagerCompat.from(context).notify(1, builder.build());
     }
     public static void sendUpdateNotification(String title, String description, String buttonText, String shortlink, Context context) {
@@ -68,7 +68,7 @@ public class NotificationUtil {
         linkIntent.setData(Uri.parse(shortlink));
         PendingIntent linkPendingIntent = PendingIntent.getActivity(context, 0, linkIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "updates")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationChannels.Miscellaneous.UPDATE_CHANNEL)
                 .setSmallIcon(69)
                 .setContentTitle(title)
                 .setContentText(description)

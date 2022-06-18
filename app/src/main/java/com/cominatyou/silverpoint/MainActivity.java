@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create notification channels as soon as possible so user is able to
         // customize them to their liking as soon as possible.
-        NotificationChannels.createActiveIncidentChannel(getApplicationContext());
+        NotificationChannels.createActiveIncidentChannels(getApplicationContext());
         NotificationChannels.createAvailableUpdateChannel(getApplicationContext());
 
         // Do tasks necessary after an app update.

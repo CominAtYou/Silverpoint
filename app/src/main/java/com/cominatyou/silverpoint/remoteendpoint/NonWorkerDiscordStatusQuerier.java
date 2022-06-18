@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.cominatyou.silverpoint.BuildConfig;
 import com.cominatyou.silverpoint.R;
+import com.cominatyou.silverpoint.notifications.NotificationChannels;
 import com.cominatyou.silverpoint.notifications.NotificationUtil;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 import com.cominatyou.silverpoint.util.RequestQueueSingleton;
@@ -62,7 +63,7 @@ public class NonWorkerDiscordStatusQuerier {
 
             // Incident is resolved
             if (latestIncident.getString("status").equals("resolved") && ActiveIncidentUtil.inProgress(context)) {
-                NotificationUtil.sendWithoutTapAction("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, context);
+                NotificationUtil.sendWithoutTapAction("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, NotificationChannels.ActiveIncidents.CHANNEL_NEW_INCIDENT, context);
                 ActiveIncidentUtil.clear(context);
             }
 
@@ -73,7 +74,7 @@ public class NonWorkerDiscordStatusQuerier {
 
             // if incident but has updates, display latest update
             else if (incidentUpdates.length() > 1 && !ActiveIncidentUtil.getLatestUpdateId(context).equals(latestIncidentUpdateId)) {
-                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, context);
+                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, NotificationChannels.ActiveIncidents.CHANNEL_INCIDENT_UPDATES, context);
                 ActiveIncidentUtil.setLatestUpdate(context, latestIncidentUpdateId, latestIncidentUpdateBody);
                 // in case an update is posted before the worker can get the initial incident
                 if (!ActiveIncidentUtil.inProgress(context)) ActiveIncidentUtil.initializeIncident(context, incidentName, incidentID);
@@ -81,7 +82,7 @@ public class NonWorkerDiscordStatusQuerier {
 
             // if incident but no updates (aside from the initial), display incident
             else if (incidentUpdates.length() == 1 && !ActiveIncidentUtil.getId(context).equals(incidentID)) {
-                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, context);
+                NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, NotificationChannels.ActiveIncidents.CHANNEL_NEW_INCIDENT, context);
                 ActiveIncidentUtil.initializeIncident(context, incidentName, incidentID, latestIncidentUpdateId, latestIncidentUpdateBody, lastUpdated, shortlink);
             }
 

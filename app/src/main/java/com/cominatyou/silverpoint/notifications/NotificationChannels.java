@@ -1,24 +1,41 @@
 package com.cominatyou.silverpoint.notifications;
 
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.Context;
 
+import java.util.Arrays;
+
 public class NotificationChannels {
-    public static void createActiveIncidentChannel(Context context) {
-        CharSequence name = "Active Incidents";
-        String channelDescription = "Active incidents are posted through this channel.";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel channel = new NotificationChannel("incidents", name, importance);
-        channel.setDescription(channelDescription);
-        context.getSystemService(NotificationManager.class).createNotificationChannel(channel);
+    public static final ActiveIncidentNotificationChannels ActiveIncidents = new ActiveIncidentNotificationChannels();
+    public static final MiscellaneousNotificationChannels Miscellaneous = new MiscellaneousNotificationChannels();
+
+    public static void createActiveIncidentChannels(Context context) {
+        context.getSystemService(NotificationManager.class).createNotificationChannelGroups(
+                Arrays.asList(new NotificationChannelGroup("activeincidents", "Incidents"), new NotificationChannelGroup("miscellaneous", "Miscellaneous")));
+        final NotificationChannel[] notificationChannels = {
+                new NotificationChannel(ActiveIncidents.CHANNEL_NEW_INCIDENT, "New Incidents", NotificationManager.IMPORTANCE_HIGH),
+                new NotificationChannel(ActiveIncidents.CHANNEL_INCIDENT_UPDATES, "Incident Updates", NotificationManager.IMPORTANCE_HIGH)
+        };
+
+        final String[] notificationChannelDescriptions = { "Notifications for new incidents.", "Notifications regarding updates for existing incidents." };
+
+
+        for (int i = 0; i < notificationChannels.length; i++) {
+            notificationChannels[i].setDescription(notificationChannelDescriptions[i]);
+            notificationChannels[i].setGroup("activeincidents");
+            context.getSystemService(NotificationManager.class).createNotificationChannel(notificationChannels[i]);
+        }
+
     }
     public static void createAvailableUpdateChannel(Context context) {
         CharSequence name = "Available Updates";
         String channelDescription = "Notifications for when required updates are available.";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel("updates", name, importance);
+        NotificationChannel channel = new NotificationChannel(Miscellaneous.UPDATE_CHANNEL, name, importance);
         channel.setDescription(channelDescription);
+        channel.setGroup("miscellaneous");
         context.getSystemService(NotificationManager.class).createNotificationChannel(channel);
     }
 }
