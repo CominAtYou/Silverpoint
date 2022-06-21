@@ -9,7 +9,7 @@ android {
         applicationId "com.cominatyou.silverpoint"
         minSdk 29
         targetSdk 33
-        versionCode 32
+        versionCode 33
         versionName "5.3.0.beta.sdk33"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
