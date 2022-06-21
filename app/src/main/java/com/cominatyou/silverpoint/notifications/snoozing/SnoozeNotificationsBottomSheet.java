@@ -7,17 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.cominatyou.silverpoint.databinding.BottomSheetDialogBinding;
+import com.cominatyou.silverpoint.databinding.SnoozeNotificationsBottomSheetDialogBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.Objects;
-
-public class BottomSheet extends BottomSheetDialogFragment {
+public class SnoozeNotificationsBottomSheet extends BottomSheetDialogFragment {
     public static String TAG = "ModalBottomSheet";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        BottomSheetDialogBinding binding = BottomSheetDialogBinding.inflate(inflater);
+        SnoozeNotificationsBottomSheetDialogBinding binding = SnoozeNotificationsBottomSheetDialogBinding.inflate(inflater);
 
         binding.untilTomorrowLayout.setOnClickListener(_v -> {
             SnoozeHandler.set(SnoozeDuration.TOMORROW, requireContext());

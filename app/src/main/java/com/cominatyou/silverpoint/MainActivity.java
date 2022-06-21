@@ -78,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.snoozeNotificationsLayout.setOnClickListener(v -> SnoozeNotificationsLayoutClick.onClick(getSupportFragmentManager(), this));
 
-        binding.debugLayout.setOnClickListener(v -> startActivity(new Intent(this, DebugPanelActivity.class)));
+        binding.snoozeNotificationsLayout.setOnLongClickListener(v -> {
+            new SnoozeNotificationsLongPressBottomSheet().show(getSupportFragmentManager(), SnoozeNotificationsLongPressBottomSheet.TAG);
+            return true;
+        });
 
         final IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:enableOnBackInvokedCallback="true"
         android:roundIcon="@mipmap/ic_silverpoint_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/Theme.Silverpoint"
         android:dataExtractionRules="@xml/data_extraction_rules"
         tools:targetApi="s">

@@ -19,7 +19,7 @@ public class SnoozeNotificationsLayoutClick {
         final long currentValue = sharedPreferences.getLong("notificationsnooze", 0L);
 
         if (System.currentTimeMillis() - currentValue > 0) {
-            new BottomSheet().show(supportFragmentManager, BottomSheet.TAG);
+            new SnoozeNotificationsBottomSheet().show(supportFragmentManager, SnoozeNotificationsBottomSheet.TAG);
             return;
         }
 

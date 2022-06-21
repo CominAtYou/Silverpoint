@@ -37,7 +37,6 @@ public class DebugPanelActivity extends AppCompatActivity {
 
         binding.clearSharedPreferencesLayout.setOnClickListener(_s -> ClearSharedPreferences.onClick(getApplicationContext(), binding));
 
-
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
