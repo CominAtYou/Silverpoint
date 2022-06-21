@@ -2,6 +2,7 @@ package com.cominatyou.silverpoint;
 
 import com.cominatyou.silverpoint.activityresources.incidentstatuspanel.IncidentStatusPanelUtil;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import com.google.android.material.color.DynamicColors;
 
 public class IncidentStatusActivity extends AppCompatActivity {
     private ActivityIncidentStatusBinding binding;
-    private Context activityContext;
+    private Activity activityContext;
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -28,7 +29,7 @@ public class IncidentStatusActivity extends AppCompatActivity {
             if (!ActiveIncidentUtil.inProgress(getApplicationContext())) {
                 finish();
             }
-            else IncidentStatusPanelUtil.update(context, binding, activityContext);
+            else IncidentStatusPanelUtil.update(binding, activityContext);
         }
     };
 
@@ -56,7 +57,7 @@ public class IncidentStatusActivity extends AppCompatActivity {
 
         binding.backButton.setOnClickListener(_s -> finish());
 
-        IncidentStatusPanelUtil.update(getApplicationContext(), binding, this);
+        IncidentStatusPanelUtil.update( binding, this);
         IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 

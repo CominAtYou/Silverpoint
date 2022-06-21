@@ -1,13 +1,14 @@
 package com.cominatyou.silverpoint.activityresources.incidentstatuspanel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.cominatyou.silverpoint.R;
@@ -21,11 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class IncidentStatusPanelUtil {
-    public static void update(Context context, ActivityIncidentStatusBinding binding, Context activityContext) {
-        binding.incidentTitleValue.setText(ActiveIncidentUtil.getTitle(context));
+    public static void update(ActivityIncidentStatusBinding binding, Context activityContext) {
+        binding.incidentTitleValue.setText(ActiveIncidentUtil.getTitle(activityContext));
         binding.incidentDescriptionLayout.setOnClickListener(v -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activityContext)
-                .setMessage(ActiveIncidentUtil.getBody(context))
+                .setMessage(ActiveIncidentUtil.getBody(activityContext))
                 .setTitle("Latest update info")
                 .setPositiveButton("Done", (dialog, _t) -> dialog.dismiss())
                 .setOnCancelListener(DialogInterface::dismiss);
@@ -33,14 +34,14 @@ public class IncidentStatusPanelUtil {
 
             TextView dialogMessage = dialog.findViewById(android.R.id.message);
             assert dialogMessage != null;
-            dialogMessage.setTypeface(ResourcesCompat.getFont(context, R.font.gs_text_regular));
+            dialogMessage.setTypeface(ResourcesCompat.getFont(activityContext, R.font.gs_text_regular));
 
             TextView dialogTitle = dialog.findViewById(R.id.alertTitle);
             assert dialogTitle != null;
-            dialogTitle.setTypeface(ResourcesCompat.getFont(context, R.font.ps_regular));
+            dialogTitle.setTypeface(ResourcesCompat.getFont(activityContext, R.font.ps_regular));
         });
 
-        final String lastUpdatedSharedPref = ActiveIncidentUtil.getLastUpdated(context);
+        final String lastUpdatedSharedPref = ActiveIncidentUtil.getLastUpdated(activityContext);
         final String lastUpdatedISODate = lastUpdatedSharedPref.equals("") ? "2016-12-08T13:20:10.000-08:00" : lastUpdatedSharedPref;
         Date lastUpdatedDate = new Date();
         try {
@@ -49,15 +50,10 @@ public class IncidentStatusPanelUtil {
             e.printStackTrace();
         }
 
-        final SimpleDateFormat dateFormat = (SimpleDateFormat) DateFormat.getDateFormat(context);
-        final SimpleDateFormat timeFormat = (SimpleDateFormat) DateFormat.getTimeFormat(context);
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) DateFormat.getDateFormat(activityContext);
+        final SimpleDateFormat timeFormat = (SimpleDateFormat) DateFormat.getTimeFormat(activityContext);
         binding.lastUpdatedValue.setText(String.format("%s, %s", dateFormat.format(lastUpdatedDate), timeFormat.format(lastUpdatedDate)));
 
-        binding.viewOnStatuspageLayout.setOnClickListener(_v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(ActiveIncidentUtil.getShortlink(context)));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        });
+        binding.viewOnStatuspageLayout.setOnClickListener(_v -> new CustomTabsIntent.Builder().build().launchUrl(activityContext, Uri.parse(ActiveIncidentUtil.getShortlink(activityContext))));
     }
 }

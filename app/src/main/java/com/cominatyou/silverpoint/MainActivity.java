@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         PostUpdateLaunch.handleIfOccurred(getApplicationContext());
         getSharedPreferences("updates", Context.MODE_PRIVATE).edit().putInt("lastSeenAppVersion", BuildConfig.VERSION_CODE).apply();
 
-        UpdateChecker.checkForUpdates(binding, getApplicationContext());
+        UpdateChecker.checkForUpdates(binding, this);
         // Start the worker
         WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.CHECK_STATUS);
 
@@ -87,6 +87,6 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
         binding.swipeRefreshLayout.setColorSchemeColors(getColor(R.color.swipe_refresh_color));
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> SwipeRefreshLayout.onRefresh(getApplicationContext(), this, binding));
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> SwipeRefreshLayout.onRefresh(this, binding));
     }
 }

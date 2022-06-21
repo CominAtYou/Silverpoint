@@ -1,6 +1,5 @@
 package com.cominatyou.silverpoint.activityresources.mainactivity;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.cominatyou.silverpoint.MainActivity;
@@ -11,11 +10,11 @@ import com.cominatyou.silverpoint.remoteendpoint.NonWorkerDiscordStatusQuerier;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SwipeRefreshLayout {
-    public static void onRefresh(Context context, MainActivity activity, ActivityMainBinding binding) {
+    public static void onRefresh(MainActivity activity, ActivityMainBinding binding) {
         // Run in a new thread because running network code on the UI thread is an abhorrent idea
         new Thread(() -> {
             Log.v("SwipeToRefreshThread", "Running swipe to refresh callback");
-            DiscordQueryResult result = NonWorkerDiscordStatusQuerier.run(context);
+            DiscordQueryResult result = NonWorkerDiscordStatusQuerier.run(activity);
 
             if (result != DiscordQueryResult.SUCCESS) activity.runOnUiThread(() -> {
                 final String message = result == DiscordQueryResult.FAILURE ? "Something went wrong. Give it a try later." : "You'll need to update the app before you can do this.";

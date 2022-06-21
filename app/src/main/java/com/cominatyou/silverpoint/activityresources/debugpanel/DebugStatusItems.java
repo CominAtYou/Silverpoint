@@ -30,7 +30,7 @@ public class DebugStatusItems {
 
         final String latestIncidentUpdateID = ActiveIncidentUtil.getLatestUpdateId(context);
         binding.latestIncidentUpdateId.setText(latestIncidentUpdateID.equals("") ? "null" : latestIncidentUpdateID);
-        binding.versionField.setText(String.format(Locale.getDefault(), "%s (%s variant), %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE.substring(0, 1).toUpperCase() + BuildConfig.BUILD_TYPE.substring(1), BuildConfig.VERSION_CODE));
+        binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE, BuildConfig.VERSION_CODE));
 
         final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
         binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
