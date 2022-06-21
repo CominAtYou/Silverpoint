@@ -74,7 +74,11 @@ public class ActiveIncidentUtil {
         getSharedPreferences(context).edit()
                 .putString("title", title)
                 .putString("id", id)
+                .putBoolean("inProgress", true)
         .apply();
+
+        Intent intent = new Intent("INCIDENT_UPDATED");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     public static void clear(Context context) {
