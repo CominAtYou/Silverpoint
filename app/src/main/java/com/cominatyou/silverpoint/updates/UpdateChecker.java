@@ -1,8 +1,6 @@
 package com.cominatyou.silverpoint.updates;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
@@ -15,18 +13,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.cominatyou.silverpoint.BuildConfig;
+import com.cominatyou.silverpoint.MainActivity;
 import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.util.RequestQueueSingleton;
-import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UpdateChecker { // TODO: Add logging
-    public static void checkForUpdates(ActivityMainBinding binding, Activity activityContext) {
-        SharedPreferences updatePreferences = activityContext.getSharedPreferences("updates", Context.MODE_PRIVATE);
-        final RequestQueue queue = RequestQueueSingleton.getInstance(activityContext).getQueue();
+    public static void checkForUpdates(MainActivity activity) {
+        SharedPreferences updatePreferences = activity.getSharedPreferences("updates", Context.MODE_PRIVATE);
+        final RequestQueue queue = RequestQueueSingleton.getInstance(activity).getQueue();
         final CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
 
         final StringRequest request = new StringRequest(Request.Method.GET, "https://api.cominatyou.com/silverpoint/updates", rsp -> {
@@ -36,21 +34,21 @@ public class UpdateChecker { // TODO: Add logging
                 final String newVersion = response.getString("version");
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && !response.getBoolean("breaking")) {
                     Log.v("UpdateChecker", String.format("A new version is available (%s)", response.getString("version")));
-                    Snackbar snackbar = Snackbar.make(binding.getRoot(), String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> customTabsIntent.launchUrl(activityContext, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
+                    Snackbar snackbar = Snackbar.make(activity.binding.getRoot(), String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> customTabsIntent.launchUrl(activity, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
                 }
                 else if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking")) {
                     Log.v("UpdateChecker", String.format("Breaking update available (%s). Disabling most app functionality until update is installed.", response.getString("version")));
-                    Snackbar snackbar = Snackbar.make(binding.getRoot(), "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> customTabsIntent.launchUrl(activityContext, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
+                    Snackbar snackbar = Snackbar.make(activity.binding.getRoot(), "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> customTabsIntent.launchUrl(activity, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
 
-                    final TextView[] buttonTitles = { binding.startWorkerTitle, binding.viewActiveIncidentTitle, binding.snoozeNotificationsTitle, binding.debugTitle };
+                    final TextView[] buttonTitles = { activity.binding.startWorkerTitle, activity.binding.viewActiveIncidentTitle, activity.binding.snoozeNotificationsTitle, activity.binding.debugTitle };
                     for (TextView titleText : buttonTitles) {
-                        titleText.setTextColor(activityContext.getColor(R.color.text_disabled));
+                        titleText.setTextColor(activity.getColor(R.color.text_disabled));
                     }
-                    final View[] buttonElements = { binding.startWorkerLayout, binding.startWorkerDescription, binding.viewActiveIncidentLayout, binding.snoozeNotificationsLayout, binding.snoozeNotificationsDescription, binding.debugLayout, binding.debugDescription };
+                    final View[] buttonElements = { activity.binding.startWorkerLayout, activity.binding.startWorkerDescription, activity.binding.viewActiveIncidentLayout, activity.binding.snoozeNotificationsLayout, activity.binding.snoozeNotificationsDescription, activity.binding.debugLayout, activity.binding.debugDescription };
                     for (View buttonElement : buttonElements) {
                         buttonElement.setEnabled(false);
                     }

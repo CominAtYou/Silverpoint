@@ -24,7 +24,7 @@ import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 import com.google.android.material.color.DynamicColors;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    public ActivityMainBinding binding;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Create notification channels as soon as possible so user is able to
         // customize them to their liking as soon as possible.
-        NotificationChannels.createActiveIncidentChannels(getApplicationContext());
-        NotificationChannels.createAvailableUpdateChannel(getApplicationContext());
+        NotificationChannels.createActiveIncidentChannels(this);
+        NotificationChannels.createAvailableUpdateChannel(this);
 
         // Do tasks necessary after an app update.
         PostUpdateLaunch.handleIfOccurred(getApplicationContext());
         getSharedPreferences("updates", Context.MODE_PRIVATE).edit().putInt("lastSeenAppVersion", BuildConfig.VERSION_CODE).apply();
 
-        UpdateChecker.checkForUpdates(binding, this);
+        UpdateChecker.checkForUpdates(this);
         // Start the worker
         WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.CHECK_STATUS);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
         binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
 
-        ViewActiveIncidentLayout.setText(getApplicationContext(), binding);
+        ViewActiveIncidentLayout.setText(this);
 
         binding.viewActiveIncidentLayout.setOnClickListener(v -> startActivity(new Intent(this, IncidentStatusActivity.class)));
 
@@ -87,6 +87,6 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
         binding.swipeRefreshLayout.setColorSchemeColors(getColor(R.color.swipe_refresh_color));
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> SwipeRefreshLayout.onRefresh(this, binding));
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> SwipeRefreshLayout.onRefresh(this));
     }
 }
