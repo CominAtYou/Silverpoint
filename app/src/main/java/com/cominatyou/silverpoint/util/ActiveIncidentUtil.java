@@ -26,9 +26,10 @@ public class ActiveIncidentUtil {
     }
 
     // A change to an incident update will always involve a change to ID and the body.
-    public static void setLatestUpdate(Context context, String id, String body) {
+    public static void setLatestUpdate(Context context, String id, String body, String lastUpdated) {
         getSharedPreferences(context).edit()
                 .putString("latestUpdateId", id)
+                .putString("lastUpdated", lastUpdated)
                 .putString("body", body)
         .apply();
 
@@ -67,10 +68,11 @@ public class ActiveIncidentUtil {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void initializeIncident(Context context, String title, String id) {
+    public static void initializeIncident(Context context, String title, String id, String shortlink) {
         getSharedPreferences(context).edit()
                 .putString("title", title)
                 .putString("id", id)
+                .putString("shortlink", shortlink)
                 .putBoolean("inProgress", true)
         .apply();
 

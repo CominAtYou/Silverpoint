@@ -92,7 +92,7 @@ public class DebugPanel extends AppCompatActivity {
             snackbar.show();
         });
 
-
+        // TODO: Use broadcasts for this.
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
