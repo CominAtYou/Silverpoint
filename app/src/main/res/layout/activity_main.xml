@@ -1,183 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/swipe_refresh_layout">
+    android:id="@+id/root_layout">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/main_title_by_andrew_prahlow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="112dp"
+        android:fontFamily="@font/ps_regular"
+        android:text="@string/app_name"
+        android:textSize="38sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/text"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_title_by_andrew_prahlow"
+        android:id="@+id/swipe_refresh_layout">
 
-            <TextView
-                android:id="@+id/main_title_by_andrew_prahlow"
-                android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="112dp"
-                android:fontFamily="@font/ps_regular"
-                android:text="@string/app_name"
-                android:textSize="38sp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/general_header"
-                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="48dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="@string/general"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_title_by_andrew_prahlow" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/start_worker_layout"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="4dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/general_header">
+                android:layout_width="match_parent">
 
                 <TextView
-                    android:id="@+id/start_worker_title"
-                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:id="@+id/general_header"
+                    style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/start_worker"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/start_worker_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="48dp"
                     android:fontFamily="@font/gs_text_regular"
-                    android:text="@string/start_querying_description"
-                    app:layout_constraintStart_toStartOf="@+id/start_worker_title"
-                    app:layout_constraintTop_toBottomOf="@+id/start_worker_title" />
+                    android:text="@string/general"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/start_worker_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="4dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/general_header">
+
+                    <TextView
+                        android:id="@+id/start_worker_title"
+                        style="@style/TextAppearance.AppCompat.InfoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/start_worker"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/start_worker_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/gs_text_regular"
+                        android:text="@string/start_querying_description"
+                        app:layout_constraintStart_toStartOf="@+id/start_worker_title"
+                        app:layout_constraintTop_toBottomOf="@+id/start_worker_title" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/view_active_incident_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="auto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/start_worker_layout">
+
+                    <TextView
+                        android:id="@+id/view_active_incident_title"
+                        style="@style/TextAppearance.AppCompat.InfoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/view_active_incident"
+                        android:textColor="@color/text_disabled"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/view_active_incident_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:enabled="false"
+                        android:fontFamily="@font/gs_text_regular"
+                        android:text="@string/there_currently_isn_t_an_active_incident"
+                        app:layout_constraintStart_toStartOf="@+id/view_active_incident_title"
+                        app:layout_constraintTop_toBottomOf="@+id/view_active_incident_title" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_active_incident_layout"
+                    android:id="@+id/snooze_notifications_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.InfoTitle"
+                        android:text="@string/snooze_notifications"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="18dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/snooze_notifications_title"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gs_text_regular"
+                        android:text="@string/snooze_notifications_description"
+                        app:layout_constraintStart_toStartOf="@id/snooze_notifications_title"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/snooze_notifications_description"
+                        app:layout_constraintTop_toBottomOf="@id/snooze_notifications_title"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/debug_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/snooze_notifications_layout">
+
+                    <TextView
+                        android:id="@+id/debug_title"
+                        style="@style/TextAppearance.AppCompat.InfoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/debug"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/debug_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/gs_text_regular"
+                        android:text="@string/debug_panel_description"
+                        app:layout_constraintStart_toStartOf="@+id/debug_title"
+                        app:layout_constraintTop_toBottomOf="@+id/debug_title" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_active_incident_layout"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="auto"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/start_worker_layout">
-
-                <TextView
-                    android:id="@+id/view_active_incident_title"
-                    style="@style/TextAppearance.AppCompat.InfoTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/view_active_incident"
-                    android:textColor="@color/text_disabled"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextContrastCheck" />
-
-                <TextView
-                    android:id="@+id/view_active_incident_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:enabled="false"
-                    android:fontFamily="@font/gs_text_regular"
-                    android:text="@string/there_currently_isn_t_an_active_incident"
-                    app:layout_constraintStart_toStartOf="@+id/view_active_incident_title"
-                    app:layout_constraintTop_toBottomOf="@+id/view_active_incident_title" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_active_incident_layout"
-                android:id="@+id/snooze_notifications_layout">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.AppCompat.InfoTitle"
-                    android:text="@string/snooze_notifications"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/snooze_notifications_title"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gs_text_regular"
-                    android:text="@string/snooze_notifications_description"
-                    app:layout_constraintStart_toStartOf="@id/snooze_notifications_title"
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/snooze_notifications_description"
-                    app:layout_constraintTop_toBottomOf="@id/snooze_notifications_title"/>
+        </ScrollView>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/debug_layout"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:visibility="gone"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/snooze_notifications_layout">
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <TextView
-                    android:id="@+id/debug_title"
-                    style="@style/TextAppearance.AppCompat.InfoTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/debug"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/debug_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/gs_text_regular"
-                    android:text="@string/debug_panel_description"
-                    app:layout_constraintStart_toStartOf="@+id/debug_title"
-                    app:layout_constraintTop_toBottomOf="@+id/debug_title" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
