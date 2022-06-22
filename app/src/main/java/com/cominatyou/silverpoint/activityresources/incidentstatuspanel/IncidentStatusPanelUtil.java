@@ -1,6 +1,5 @@
 package com.cominatyou.silverpoint.activityresources.incidentstatuspanel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;

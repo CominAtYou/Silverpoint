@@ -4,6 +4,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.AudioAttributes;
+import android.net.Uri;
+
+import com.cominatyou.silverpoint.R;
 
 import java.util.Arrays;
 
@@ -25,6 +29,7 @@ public class NotificationChannels {
         for (int i = 0; i < notificationChannels.length; i++) {
             notificationChannels[i].setDescription(notificationChannelDescriptions[i]);
             notificationChannels[i].setGroup("activeincidents");
+            notificationChannels[i].setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification_sound), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
             context.getSystemService(NotificationManager.class).createNotificationChannel(notificationChannels[i]);
         }
 
@@ -36,6 +41,7 @@ public class NotificationChannels {
         NotificationChannel channel = new NotificationChannel(Miscellaneous.UPDATE_CHANNEL, name, importance);
         channel.setDescription(channelDescription);
         channel.setGroup("miscellaneous");
+        channel.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification_sound), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
         context.getSystemService(NotificationManager.class).createNotificationChannel(channel);
     }
 }
