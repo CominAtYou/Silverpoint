@@ -29,7 +29,7 @@
             android:layout_marginTop="28dp"
             android:fontFamily="@font/ps_regular"
             android:text="@string/enable_notifications"
-            android:textColor="@android:color/black"
+            android:textColor="@color/text"
             android:textSize="38sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icon_bell" />
