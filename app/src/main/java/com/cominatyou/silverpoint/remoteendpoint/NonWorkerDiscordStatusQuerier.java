@@ -75,9 +75,9 @@ public class NonWorkerDiscordStatusQuerier {
             // if incident but has updates, display latest update
             else if (incidentUpdates.length() > 1 && !ActiveIncidentUtil.getLatestUpdateId(context).equals(latestIncidentUpdateId)) {
                 NotificationUtil.send("Discord: " + incidentName, latestIncidentUpdateBody, "View Status", shortlink, NotificationChannels.ActiveIncidents.CHANNEL_INCIDENT_UPDATES, context);
-                ActiveIncidentUtil.setLatestUpdate(context, latestIncidentUpdateId, latestIncidentUpdateBody);
+                ActiveIncidentUtil.setLatestUpdate(context, latestIncidentUpdateId, latestIncidentUpdateBody, lastUpdated);
                 // in case an update is posted before the worker can get the initial incident
-                if (!ActiveIncidentUtil.inProgress(context)) ActiveIncidentUtil.initializeIncident(context, incidentName, incidentID);
+                if (!ActiveIncidentUtil.inProgress(context)) ActiveIncidentUtil.initializeIncident(context, incidentName, incidentID, shortlink);
             }
 
             // if incident but no updates (aside from the initial), display incident
