@@ -23,7 +23,7 @@ public class DebugSwitch {
                     .setMessage("You're about to switch to the testing endpoint. This endpoint is completely separate from the Discord status endpoint, and as such, you will not receive notifications when Discord goes down. Instead, you will receive testing notifications, which will be of no use to you, and will be frequent at times."
                             + "\n\nUnless you have been asked to, it is highly recommended to stay on the production endpoint for full functionality."
                             + "\n\nContinue anyway?")
-                    .setTitle("Hold Up!")
+                    .setTitle("Hold up!")
                     .setPositiveButton(activity.getString(R.string.yes), (dialog, which) -> {
                         Log.v("DebugMode", "Debug mode was enabled");
                         configSharedPreferences.edit().putString("selectedEndpoint", "testing").apply();
