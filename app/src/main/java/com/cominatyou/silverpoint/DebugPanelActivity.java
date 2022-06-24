@@ -20,22 +20,24 @@ public class DebugPanelActivity extends AppCompatActivity {
 
     private final Handler timerHandler = new Handler();
 
+    public ActivityDebugPanelBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
 
-        final ActivityDebugPanelBinding binding = ActivityDebugPanelBinding.inflate(getLayoutInflater());
+        binding = ActivityDebugPanelBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
         setContentView(view);
 
         DebugSwitch.toggleBasedOnPreference(getApplicationContext(), binding);
 
-        binding.debugSwitch.setOnCheckedChangeListener((v, _t) -> DebugSwitch.onChange(v, this, binding));
+        binding.debugSwitch.setOnCheckedChangeListener((v, _t) -> DebugSwitch.onChange(v, this));
 
         binding.backButton.setOnClickListener(_s -> finish());
 
-        binding.clearSharedPreferencesLayout.setOnClickListener(_s -> ClearSharedPreferences.onClick(getApplicationContext(), binding));
+        binding.clearSharedPreferencesLayout.setOnClickListener(_s -> ClearSharedPreferences.onClick(this));
 
         // TODO: Use broadcasts for this.
         new Timer().scheduleAtFixedRate(new TimerTask() {
