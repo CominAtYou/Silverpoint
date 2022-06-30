@@ -11,8 +11,6 @@
         <item name="colorSecondaryVariant">@color/silverpoint_dark</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_gradient</item>
-        <!-- Status bar color. -->
-        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->

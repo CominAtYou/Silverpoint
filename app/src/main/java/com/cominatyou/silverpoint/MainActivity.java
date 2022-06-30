@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
-            binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
+            binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(context));
+            binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(context));
             if (ActiveIncidentUtil.inProgress(getApplicationContext())) {
                 binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.info_title));
-                binding.viewActiveIncidentDescription.setText(ActiveIncidentUtil.getTitle(getApplicationContext()));
+                binding.viewActiveIncidentDescription.setText(ActiveIncidentUtil.getTitle(context));
             }
             else {
                 binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.text_disabled));
