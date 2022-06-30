@@ -9,7 +9,7 @@
     <string name="view_incident_on_statuspage">View incident on Statuspage</string>
     <string name="view_active_incident">View active incident</string>
     <string name="there_currently_isn_t_an_active_incident">There currently isn\'t an active incident</string>
-    <string name="enable_debug_mode">Enable debug mode</string>
+    <string name="debug_mode">Debug mode</string>
     <string name="general">General</string>
     <string name="start_worker">Start worker</string>
     <string name="start_querying_description">Start querying Discord\'s status</string>
