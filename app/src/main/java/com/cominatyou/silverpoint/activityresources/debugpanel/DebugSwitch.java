@@ -15,6 +15,8 @@ import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.Objects;
+
 public class DebugSwitch {
     public static void onChange(CompoundButton v, DebugPanelActivity activity) {
         final SharedPreferences configSharedPreferences = activity.getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -34,12 +36,10 @@ public class DebugSwitch {
 
             AlertDialog dialog = builder.show();
 
-            TextView dialogMessage = dialog.findViewById(android.R.id.message);
-            assert dialogMessage != null;
+            TextView dialogMessage = Objects.requireNonNull(dialog.findViewById(android.R.id.message));
             dialogMessage.setTypeface(ResourcesCompat.getFont(activity, R.font.gs_text_regular));
 
-            TextView dialogTitle = dialog.findViewById(R.id.alertTitle);
-            assert dialogTitle != null;
+            TextView dialogTitle = Objects.requireNonNull(dialog.findViewById(R.id.alertTitle));
             dialogTitle.setTypeface(ResourcesCompat.getFont(activity, R.font.ps_regular));
         }
         else {
