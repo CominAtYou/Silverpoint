@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 import com.cominatyou.silverpoint.activityresources.debugpanel.ClearSharedPreferences;
@@ -27,6 +28,7 @@ public class DebugPanelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityDebugPanelBinding.inflate(getLayoutInflater());
         final View view = binding.getRoot();
         setContentView(view);
