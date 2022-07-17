@@ -13,16 +13,17 @@ import androidx.core.content.res.ResourcesCompat;
 import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.databinding.ActivityIncidentStatusBinding;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
-import com.cominatyou.silverpoint.util.DateUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.text.ParseException;
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Objects;
 
 public class IncidentStatusPanelUtil {
     public static void update(ActivityIncidentStatusBinding binding, Context activityContext) {
         binding.incidentTitleValue.setText(ActiveIncidentUtil.getTitle(activityContext));
+
         binding.incidentDescriptionLayout.setOnClickListener(v -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activityContext)
                 .setMessage(ActiveIncidentUtil.getBody(activityContext))
@@ -31,23 +32,16 @@ public class IncidentStatusPanelUtil {
                 .setOnCancelListener(DialogInterface::dismiss);
             AlertDialog dialog = builder.show();
 
-            TextView dialogMessage = dialog.findViewById(android.R.id.message);
-            assert dialogMessage != null;
+            TextView dialogMessage = Objects.requireNonNull(dialog.findViewById(android.R.id.message));
             dialogMessage.setTypeface(ResourcesCompat.getFont(activityContext, R.font.gs_text_regular));
 
-            TextView dialogTitle = dialog.findViewById(R.id.alertTitle);
-            assert dialogTitle != null;
+            TextView dialogTitle = Objects.requireNonNull(dialog.findViewById(R.id.alertTitle));
             dialogTitle.setTypeface(ResourcesCompat.getFont(activityContext, R.font.ps_regular));
         });
 
         final String lastUpdatedSharedPref = ActiveIncidentUtil.getLastUpdated(activityContext);
         final String lastUpdatedISODate = lastUpdatedSharedPref.equals("") ? "2016-12-08T13:20:10.000-08:00" : lastUpdatedSharedPref;
-        Date lastUpdatedDate = new Date();
-        try {
-            lastUpdatedDate = DateUtil.parseRFC3339Date(lastUpdatedISODate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        long lastUpdatedDate = new DateTime(lastUpdatedISODate).getMillis();
 
         final SimpleDateFormat dateFormat = (SimpleDateFormat) DateFormat.getDateFormat(activityContext);
         final SimpleDateFormat timeFormat = (SimpleDateFormat) DateFormat.getTimeFormat(activityContext);

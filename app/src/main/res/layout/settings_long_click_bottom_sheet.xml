@@ -14,7 +14,7 @@
             android:layout_width="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/snooze_notifications_layout"
+                android:id="@+id/settings_layout"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="12dp"
@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:fontFamily="@font/gs_text_regular"
-                    android:text="@string/snooze_notifications"
+                    android:text="@string/settings_long_click_bottom_sheet_settings_label"
                     android:textColor="@color/text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -43,27 +43,21 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/snooze_notifications_layout">
+            app:layout_constraintTop_toBottomOf="@id/settings_layout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/debug"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/gs_text_regular"
-                android:textColor="@color/text"/>
+                android:text="@string/settings_long_click_bottom_sheet_debug_label"
+                android:textColor="@color/text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                app:layout_constraintTop_toBottomOf="@id/debug_layout"
-                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

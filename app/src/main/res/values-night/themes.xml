@@ -9,20 +9,12 @@
         <item name="colorSecondary">@color/silverpoint_light</item>
         <item name="colorSecondaryVariant">@color/silverpoint_dark</item>
         <item name="colorOnSecondary">@color/white</item>
-        <!-- Status bar color. -->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <!-- Customize your theme here. -->
     </style>
     <style name="TextAppearance.AppCompat.InfoTitle">
         <item name="android:textColor">@color/info_title</item>
         <item name="fontFamily">@font/ps_regular</item>
         <item name="android:textSize">20sp</item>
-    </style>
-    <style name="TextAppearance.AppCompat.MaterialSectionHeader">
-        <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 </resources>

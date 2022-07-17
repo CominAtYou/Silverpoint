@@ -16,13 +16,11 @@ import com.cominatyou.silverpoint.remoteendpoint.DiscordStatusQuerier;
 import java.util.concurrent.TimeUnit;
 
 public class BootReceiver extends BroadcastReceiver {
-    private static final Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-    public static final PeriodicWorkRequest CHECK_STATUS = new PeriodicWorkRequest.Builder(DiscordStatusQuerier.class, 15, TimeUnit.MINUTES).setConstraints(constraints).build();
     @Override
     public void onReceive(Context context, Intent intent) { // Start WorkManager.
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Log.v("DiscordStatusWorker", "Starting worker");
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, CHECK_STATUS);
+            QueryWorker.enqueue(context, false);
         }
     }
 }
