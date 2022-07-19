@@ -21,7 +21,7 @@
             app:collapsedTitleTextAppearance="@style/ThemeOverlay.App.ToolbarText"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleTextAppearance="@style/TextAppearance.App.TitleLarge"
-            app:layout_scrollFlags="exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_bar"
@@ -37,7 +37,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/swipe_refresh_layout">
 
