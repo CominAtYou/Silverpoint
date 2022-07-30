@@ -7,20 +7,20 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.WorkManager;
 
 import com.cominatyou.silverpoint.activityresources.mainactivity.InitialSetup;
 import com.cominatyou.silverpoint.activityresources.mainactivity.PostUpdateLaunch;
+import com.cominatyou.silverpoint.activityresources.mainactivity.SettingsLongPressBottomSheet;
 import com.cominatyou.silverpoint.activityresources.mainactivity.StartWorkerLayout;
 import com.cominatyou.silverpoint.activityresources.mainactivity.SwipeRefreshLayout;
 import com.cominatyou.silverpoint.activityresources.mainactivity.ViewActiveIncidentLayout;
 import com.cominatyou.silverpoint.databinding.ActivityMainBinding;
 import com.cominatyou.silverpoint.notifications.NotificationChannels;
-import com.cominatyou.silverpoint.notifications.snoozing.SnoozeNotificationsLayoutClick;
 import com.cominatyou.silverpoint.updates.UpdateChecker;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
+import com.cominatyou.silverpoint.util.Theme;
 import com.google.android.material.color.DynamicColors;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             else {
                 binding.viewActiveIncidentTitle.setTextColor(getColor(R.color.text_disabled));
                 binding.viewActiveIncidentDescription.setEnabled(false);
-                binding.viewActiveIncidentDescription.setText(R.string.there_currently_isn_t_an_active_incident);
+                binding.viewActiveIncidentDescription.setText(R.string.no_active_incident_explanation);
             }
         }
     };
@@ -45,14 +45,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         DynamicColors.applyToActivityIfAvailable(this);
 
         // Start the initial setup if it wasn't already completed.
         InitialSetup.startIfNotCompleted(this);
+        Theme.set(this);
         
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Make the window not fit system windows.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Create notification channels as soon as possible so user is able to
         // customize them to their liking as soon as possible.
@@ -65,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         UpdateChecker.checkForUpdates(this);
         // Start the worker
-        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("queryDiscordStatus", ExistingPeriodicWorkPolicy.KEEP, BootReceiver.CHECK_STATUS);
+        QueryWorker.enqueue(this, false);
 
-        binding.startWorkerLayout.setOnClickListener(v -> StartWorkerLayout.onClick(getApplicationContext(), binding));
+        binding.startWorkerLayout.setOnClickListener(_v -> StartWorkerLayout.onClick(this));
 
         binding.viewActiveIncidentLayout.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
         binding.viewActiveIncidentDescription.setEnabled(ActiveIncidentUtil.inProgress(getApplicationContext()));
@@ -76,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.viewActiveIncidentLayout.setOnClickListener(v -> startActivity(new Intent(this, IncidentStatusActivity.class)));
 
-        binding.snoozeNotificationsLayout.setOnClickListener(v -> SnoozeNotificationsLayoutClick.onClick(getSupportFragmentManager(), this));
+        binding.settingsLayout.setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
 
-        binding.snoozeNotificationsLayout.setOnLongClickListener(v -> {
-            new SnoozeNotificationsLongPressBottomSheet().show(getSupportFragmentManager(), SnoozeNotificationsLongPressBottomSheet.TAG);
+        binding.settingsLayout.setOnLongClickListener(v -> {
+            new SettingsLongPressBottomSheet().show(getSupportFragmentManager(), SettingsLongPressBottomSheet.TAG);
             return true;
         });
 

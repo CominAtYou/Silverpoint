@@ -15,7 +15,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/snooze_notifications"
+                android:text="@string/snooze_notifications_bottom_sheet_title"
                 android:textColor="@color/text"
                 android:fontFamily="@font/ps_regular"
                 android:textSize="22sp"

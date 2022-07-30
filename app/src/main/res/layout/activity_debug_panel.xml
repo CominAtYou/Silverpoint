@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="@string/debug"
+                app:title="@string/debug_activity_title"
                 android:elevation="0dp"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 android:id="@+id/back_button"/>
@@ -38,7 +38,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -57,7 +57,6 @@
                 android:layout_marginTop="48dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText"
                 tools:layout_editor_absoluteY="205dp" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
@@ -103,11 +102,8 @@
                     android:layout_marginTop="18dp"
                     android:fontFamily="@font/ps_regular"
                     android:text="Last ran"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/last_ran_field"
@@ -116,11 +112,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="N/A"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/last_ran_header"
-                    app:layout_constraintTop_toBottomOf="@+id/last_ran_header"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toBottomOf="@+id/last_ran_header" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -146,8 +139,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/worker_result_field"
@@ -156,11 +148,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="N/A"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/worker_result_header"
-                    app:layout_constraintTop_toBottomOf="@+id/worker_result_header"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toBottomOf="@+id/worker_result_header" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -184,8 +173,7 @@
                     android:fontFamily="@font/ps_regular"
                     android:text="Latest incident ID"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/latest_incident_id"
@@ -194,11 +182,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="null"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/latest_incident_id_header"
                     app:layout_constraintTop_toBottomOf="@+id/latest_incident_id_header"
-                    tools:ignore="HardcodedText"
                     tools:text="3bf2c43a" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -222,8 +207,7 @@
                     android:fontFamily="@font/ps_regular"
                     android:text="Latest incident update ID"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/latest_incident_update_id"
@@ -232,11 +216,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="null"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/latest_incident_update_id_header"
                     app:layout_constraintTop_toBottomOf="@+id/latest_incident_update_id_header"
-                    tools:ignore="HardcodedText"
                     tools:text="0fcjzks7f" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -297,8 +278,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/version_field"
@@ -307,11 +287,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="unknown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@id/version_header"
                     app:layout_constraintTop_toBottomOf="@+id/version_header"
-                    tools:ignore="HardcodedText"
                     tools:text="1.0.0 DEBUG, 1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -322,7 +299,6 @@
                 android:layout_height="80dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/version_layout">
 
                 <TextView
@@ -337,8 +313,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/build_timestamp"
@@ -347,11 +322,8 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="unknown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@id/build_timestamp_header"
                     app:layout_constraintTop_toBottomOf="@+id/build_timestamp_header"
-                    tools:ignore="HardcodedText"
                     tools:text="December 21, 2020 8:15 PM CST" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -369,8 +341,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
-                app:layout_constraintTop_toBottomOf="@id/worker_result_layout"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toBottomOf="@id/worker_result_layout" />
 
             <TextView
                 android:id="@+id/app_info_section_header"
@@ -383,8 +354,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/apiEndpointTextView"
-                app:layout_constraintTop_toBottomOf="@id/clear_shared_preferences_layout"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toBottomOf="@id/clear_shared_preferences_layout" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/build_timestamp_layout"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

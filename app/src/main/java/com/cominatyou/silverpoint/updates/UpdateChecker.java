@@ -44,11 +44,11 @@ public class UpdateChecker { // TODO: Add logging
                     snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
                     snackbar.show();
 
-                    final TextView[] buttonTitles = { activity.binding.startWorkerTitle, activity.binding.viewActiveIncidentTitle, activity.binding.snoozeNotificationsTitle, activity.binding.debugTitle };
+                    final TextView[] buttonTitles = { activity.binding.startWorkerTitle, activity.binding.viewActiveIncidentTitle, activity.binding.settingsTitle };
                     for (TextView titleText : buttonTitles) {
                         titleText.setTextColor(activity.getColor(R.color.text_disabled));
                     }
-                    final View[] buttonElements = { activity.binding.startWorkerLayout, activity.binding.startWorkerDescription, activity.binding.viewActiveIncidentLayout, activity.binding.snoozeNotificationsLayout, activity.binding.snoozeNotificationsDescription, activity.binding.debugLayout, activity.binding.debugDescription };
+                    final View[] buttonElements = { activity.binding.startWorkerLayout, activity.binding.startWorkerDescription, activity.binding.viewActiveIncidentLayout, activity.binding.settingsLayout, activity.binding.settingsDescription };
                     for (View buttonElement : buttonElements) {
                         buttonElement.setEnabled(false);
                     }

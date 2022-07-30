@@ -17,6 +17,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.cominatyou.silverpoint.databinding.ActivityIncidentStatusBinding;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
+import com.cominatyou.silverpoint.util.Theme;
 import com.google.android.material.color.DynamicColors;
 
 public class IncidentStatusActivity extends AppCompatActivity {
@@ -41,6 +42,8 @@ public class IncidentStatusActivity extends AppCompatActivity {
         binding = ActivityIncidentStatusBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Theme.set(this);
+
         activityContext = this;
 
         // Make the back button easier to hit
@@ -57,7 +60,7 @@ public class IncidentStatusActivity extends AppCompatActivity {
 
         binding.backButton.setOnClickListener(_s -> finish());
 
-        IncidentStatusPanelUtil.update( binding, this);
+        IncidentStatusPanelUtil.update(binding, this);
         IntentFilter filter = new IntentFilter("INCIDENT_UPDATED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 

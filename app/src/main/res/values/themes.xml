@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
     <style name="TextAppearance.AppCompat.InfoTitle">
         <item name="android:textColor">@color/info_title</item>

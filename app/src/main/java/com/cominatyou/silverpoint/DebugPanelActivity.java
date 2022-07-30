@@ -49,12 +49,4 @@ public class DebugPanelActivity extends AppCompatActivity {
             }
         }, 0L, 1000L);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
 }

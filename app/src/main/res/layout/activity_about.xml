@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            android:background="@color/collapsing_toolbar_background"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.TitleLarge"
+            app:collapsedTitleTextAppearance="@style/ThemeOverlay.App.ToolbarText"
+            app:expandedTitleMarginStart="24dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="@string/about_activity_title"
+                android:elevation="0dp"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                android:id="@+id/top_bar"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+            android:text="@string/about_basic_info_header"
+            android:id="@+id/basic_info_header"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/version_layout"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/basic_info_header">
+
+            <ImageView
+                android:id="@+id/version_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_info_outlined"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:importantForAccessibility="no"
+                app:tint="@color/text"
+                android:layout_marginStart="24dp"/>
+
+            <TextView
+                android:id="@+id/version_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/version_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:text="@string/about_version_layout_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/version_description"
+                android:text="0.0.1 (01)"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
+                app:layout_constraintStart_toStartOf="@id/version_title"
+                app:layout_constraintTop_toBottomOf="@id/version_title"
+                android:paddingBottom="16dp"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/version_layout"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/source_layout">
+
+            <ImageView
+                android:id="@+id/source_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_code"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/text"/>
+
+            <TextView
+                android:id="@+id/source_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/source_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:text="@string/about_source_layout_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/source_description"
+                android:text="CominAtYou/Silverpoint"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
+                app:layout_constraintStart_toStartOf="@id/source_title"
+                app:layout_constraintTop_toBottomOf="@id/source_title"
+                android:paddingBottom="16dp"
+                tools:ignore="HardcodedText" />
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attribution_header"
+            android:text="@string/about_attribution_section_header"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+            app:layout_constraintTop_toBottomOf="@id/source_layout"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attribution_header"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/icons_layout">
+
+            <ImageView
+                android:id="@+id/icons_layout_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/text"/>
+
+            <TextView
+                android:id="@+id/icons_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/icons_layout_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:text="@string/about_icons_layout_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icons_description"
+                android:text="@string/about_icons_layout_description"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
+                app:layout_constraintStart_toStartOf="@id/icons_title"
+                app:layout_constraintTop_toBottomOf="@id/icons_title"
+                android:paddingBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icons_layout"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/license_layout">
+
+            <ImageView
+                android:id="@+id/license_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_gavel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/text"/>
+
+            <TextView
+                android:id="@+id/license_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/license_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:text="@string/about_license_layout_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/license_description"
+                android:text="@string/about_license_layout_description"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
+                app:layout_constraintStart_toStartOf="@id/license_title"
+                app:layout_constraintTop_toBottomOf="@id/license_title"
+                android:paddingBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

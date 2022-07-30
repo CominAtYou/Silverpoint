@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            android:background="@color/collapsing_toolbar_background"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.TitleLarge"
+            app:collapsedTitleTextAppearance="@style/ThemeOverlay.App.ToolbarText"
+            app:expandedTitleMarginStart="24dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="@string/settings_activity_title"
+                android:elevation="0dp"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                android:id="@+id/top_bar"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/general_section_header"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="36dp"
+                android:text="@string/settings_general_section_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/incident_checks_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/general_section_header"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground">
+                
+                <TextView
+                    android:id="@+id/incident_checks_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/settings_incident_checks_layout_title"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="260dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    app:layout_constraintStart_toStartOf="@id/incident_checks_header"
+                    app:layout_constraintTop_toBottomOf="@id/incident_checks_header"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/settings_incident_checks_layout_description"/>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/incident_checks_siwtch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frequency_select_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/incident_checks_layout">
+
+                <TextView
+                    android:id="@+id/frequency_select_header"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/settings_frequency_select_layout_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="16dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="@string/settings_frequency_select_layout_description"
+                    android:id="@+id/frequency_select_description"
+                    app:layout_constraintStart_toStartOf="@id/frequency_select_header"
+                    app:layout_constraintTop_toBottomOf="@id/frequency_select_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/snooze_notifications_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frequency_select_layout">
+
+                <TextView
+                    android:id="@+id/snooze_notifications_title"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/settings_snooze_notifications_layout_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/snooze_notifications_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="@string/settings_snooze_notifications_layout_description"
+                    app:layout_constraintStart_toStartOf="@id/snooze_notifications_title"
+                    app:layout_constraintTop_toBottomOf="@id/snooze_notifications_title" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/appearance_section_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/snooze_notifications_layout"
+                android:text="@string/settings_appearance_section_header"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/theme_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appearance_section_header">
+
+                <TextView
+                    android:id="@+id/theme_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/settings_theme_layout_title"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"/>
+
+                <TextView
+                    android:id="@+id/theme_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gs_text_regular"
+                    app:layout_constraintStart_toStartOf="@id/theme_header"
+                    app:layout_constraintTop_toBottomOf="@id/theme_header"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/settings_theme_layout_default_description"
+                    tools:text="Follow system"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/advanced_section_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/theme_layout"
+                android:layout_marginTop="16dp"
+                style="@style/TextAppearance.AppCompat.MaterialSectionHeader"
+                android:layout_marginStart="24dp"
+                android:text="@string/settings_advanced_section_header"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/about_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/advanced_section_header"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/about_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    style="@style/TextAppearance.AppCompat.InfoTitle"
+                    android:text="@string/settings_about_layout_header"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/about_header"
+                    app:layout_constraintTop_toBottomOf="@id/about_header"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="16dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="@string/settings_about_layout_description"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
