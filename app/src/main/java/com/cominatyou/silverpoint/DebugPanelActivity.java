@@ -37,7 +37,7 @@ public class DebugPanelActivity extends AppCompatActivity {
 
         binding.debugSwitch.setOnCheckedChangeListener((v, _t) -> DebugSwitch.onChange(v, this));
 
-        binding.backButton.setOnClickListener(_s -> finish());
+        binding.topBar.setNavigationOnClickListener(v -> finish());
 
         binding.clearSharedPreferencesLayout.setOnClickListener(_s -> ClearSharedPreferences.onClick(this));
 
