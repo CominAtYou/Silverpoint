@@ -59,7 +59,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/incident_title_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/incident_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,6 +82,7 @@
                     android:id="@+id/incident_title_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="@string/loading"
@@ -92,7 +93,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/incident_description_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/latest_update_info"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -114,6 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="@string/tap_to_view"
@@ -124,7 +126,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/last_updated_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/last_updated"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    android:paddingBottom="16dp"
                     android:fontFamily="@font/gs_text_regular"
                     android:text="@string/just_a_sec"
                     app:layout_constraintStart_toStartOf="@+id/last_updated_title"
