@@ -36,28 +36,35 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/debug_layout"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_layout">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:fontFamily="@font/gs_text_regular"
-                android:text="@string/settings_long_click_bottom_sheet_debug_label"
-                android:textColor="@color/text"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/debug_layout"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/settings_layout">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:fontFamily="@font/gs_text_regular"
+                    android:text="@string/settings_long_click_bottom_sheet_debug_label"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/debug_layout"
+                android:id="@+id/padding_view"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
