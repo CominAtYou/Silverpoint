@@ -11,6 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:liftOnScrollTargetViewId="@id/nested_scroll_view"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -26,7 +27,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="58dp"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
                 app:title="@string/app_name" />
@@ -42,6 +43,7 @@
         android:id="@+id/swipe_refresh_layout">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

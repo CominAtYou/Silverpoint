@@ -24,7 +24,8 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="58dp"
+                app:titleMarginStart="16dp"
                 app:layout_collapseMode="pin"
                 app:title="@string/frequency_select_activity_title"
                 android:elevation="0dp"

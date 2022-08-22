@@ -33,9 +33,6 @@
     </style>
     <style name="ThemeOverlay.App.ToolbarText" parent="">
         <item name="android:fontFamily">@font/ps_regular</item>
-    </style>
-    <style name="ThemeOverlay.App.NonCollapsingToolbarText" parent="">
-        <item name="android:fontFamily">@font/ps_regular</item>
         <item name="android:textSize">22sp</item>
     </style>
 </resources>

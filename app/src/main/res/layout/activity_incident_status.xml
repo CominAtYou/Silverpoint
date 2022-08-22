@@ -26,7 +26,8 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="58dp"
+                app:titleMarginStart="16dp"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_arrow_back"
