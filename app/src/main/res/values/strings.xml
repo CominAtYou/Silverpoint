@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Silverpoint</string>
     <string name="incident_title">Incident title</string>
     <string name="latest_update_info">Latest update info</string>
@@ -84,6 +84,6 @@
     <string name="theme_select_option_light">Light</string>
     <string name="theme_select_option_dark">Dark</string>
     <string name="theme_select_option_follow_system">Follow system</string>
-    <string name="theme_select_activity_notice">&quot;Follow system&quot; will automatically change the theme based on the system setting. To override it, select one of the above settings.</string>
+    <string name="theme_select_activity_notice">\'Follow system\' will automatically change the theme to match the system theme. To override it, select one of the above settings.</string>
     <string name="snooze_notifications_bottom_sheet_title">Snooze notifications</string>
 </resources>
