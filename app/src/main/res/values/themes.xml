@@ -27,11 +27,11 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="TextAppearance.App.TitleLarge" parent="">
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:fontFamily">@font/ps_regular</item>
         <item name="android:textSize">38sp</item>
     </style>
-    <style name="ThemeOverlay.App.ToolbarText" parent="">
+    <style name="ThemeOverlay.App.ToolbarText" parent="Widget.Material3.Toolbar">
         <item name="android:fontFamily">@font/ps_regular</item>
         <item name="android:textSize">22sp</item>
     </style>
