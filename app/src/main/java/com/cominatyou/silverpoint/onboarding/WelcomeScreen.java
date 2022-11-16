@@ -36,6 +36,5 @@ public class WelcomeScreen extends AppCompatActivity {
         // Destroy the activity when setup completes so the user can't use the back button to return to it
         final IntentFilter filter = new IntentFilter("SETUP_COMPLETED");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
-
     }
 }

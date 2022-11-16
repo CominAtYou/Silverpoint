@@ -4,13 +4,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -23,17 +24,16 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NotificationsPromptActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class NotificationsPromptActivity extends AppCompatActivity {
     private ActivityNotificationsPromptBinding binding;
-    private boolean shouldRunOnResume = false;
+    /**
+     * Whether or not the permission check in {@code onResume()} should be run.
+     */
+    private boolean shouldRunNotificationsPermissionCheckOnResume = false;
 
     @SuppressLint("InlinedApi")
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode != 0x1) return;
-
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+        if (granted) {
             Log.v("NotificationPermissionRequest", "Notification permission was granted");
 
             getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
@@ -41,56 +41,62 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED")); // Notify the welcome screen that setup is done
             finish();
         }
-        else {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                Log.v("NotificationPermissionRequest", "Notification permission was denied");
+        else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+            Log.v("NotificationPermissionRequest", "Notification permission was denied");
 
-                final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. You'll need to enable them to use the app.", 7000);
-                snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
-                snackbar.setAction("Enable", v -> {
-                    requestPermissions(new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 0x1);
-                    snackbar.dismiss();
-                });
-                snackbar.show();
-            }
-            else {
-                Log.v("NotificationPermissionRequest", "Device is < SDK 33 and Notifications are off or Android is refusing to present the permission dialog");
-
-                final Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
-
-                final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. Enable them in Android settings to use the app.", 7000);
-                snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
-                snackbar.setAction("Enable", v -> {
-                    Log.v("NotificationPermissionRequest", "Presenting Android notification settings page for app");
-                    startActivity(intent);
-                    shouldRunOnResume = true;
-                });
-                snackbar.show();
-            }
+            final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. You'll need to enable them to use the app.", 7000);
+            snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
+            snackbar.setAction("Enable", v -> {
+                this.requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                snackbar.dismiss();
+            });
+            snackbar.show();
         }
-    }
+        else {
+            Log.v("NotificationPermissionRequest", "Notifications were manually turned off or Android is refusing to present the permission dialog");
 
-    @SuppressLint("InlinedApi")
+            final Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+
+            final Snackbar snackbar = Snackbar.make(binding.getRoot(), "Notifications were denied. Enable them in Android settings to use the app.", 7000);
+            snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
+            snackbar.setAction("Enable", v -> {
+                Log.v("NotificationPermissionRequest", "Presenting Android notification settings page for app");
+                startActivity(intent);
+                shouldRunNotificationsPermissionCheckOnResume = true;
+            });
+            snackbar.show();
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivityIfAvailable(this);
-
         binding = ActivityNotificationsPromptBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+            Log.v("NotificationPermissionRequest", "App already has notification permission");
+            getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("SETUP_COMPLETED"));
+            finish();
+        }
+
         binding.okButton.setOnClickListener(v -> {
-            if (NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled()) {
-                getApplicationContext().getSharedPreferences("config", Context.MODE_PRIVATE).edit().putBoolean("completedsetup", true).apply();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SETUP_COMPLETED")); // Notify the welcome screen that setup is done
-                finish();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Log.v("NotificationPermissionRequest", "Presenting notification permission request dialog");
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
             else {
-                Log.v("NotificationPermissionRequest", "Presenting notification permission request dialog");
-                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0x1);
+                Log.v("NotificationPermissionRequest", "Device is < SDK 33 and notifications have been manually turned off, presenting Android notification settings for app");
+                final Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+                startActivity(intent);
+                shouldRunNotificationsPermissionCheckOnResume = true;
             }
         });
 
@@ -100,7 +106,7 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
     @Override
     protected void onResume() {
         super.onResume();
-        if (shouldRunOnResume) {
+        if (shouldRunNotificationsPermissionCheckOnResume) {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -110,6 +116,9 @@ public class NotificationsPromptActivity extends AppCompatActivity implements Ac
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("SETUP_COMPLETED"));
                         finish();
+                    }
+                    else {
+                        shouldRunNotificationsPermissionCheckOnResume = true;
                     }
                 }
             }, 750);
