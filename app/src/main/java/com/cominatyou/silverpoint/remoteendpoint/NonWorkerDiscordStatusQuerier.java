@@ -28,7 +28,7 @@ public class NonWorkerDiscordStatusQuerier {
             try {
                 final JSONObject response = new JSONObject(rsp);
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking") && !updateSharedPreferences.getBoolean("alerted", false)) {
-                    NotificationUtil.sendUpdateNotification("Required Update Available", "A required update for " + context.getString(R.string.app_name) + " has been released. You will not be able to receive notifications regarding Discord's status until you update.", "Update", "https://cdn.cominatyou.com/silverpoint/releases/latest", context);
+                    NotificationUtil.sendUpdateNotification("Required update available", "A required update for " + context.getString(R.string.app_name) + " has been released. You will not be able to receive notifications regarding Discord's status until you update.", "Update", "https://cdn.cominatyou.com/silverpoint/releases/latest", context);
                     updateSharedPreferences.edit().putBoolean("alerted", true).putBoolean("breakingUpdateAvailable", true).apply();
                 }
             }
