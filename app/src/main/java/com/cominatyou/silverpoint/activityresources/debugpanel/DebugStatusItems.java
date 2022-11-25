@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 
 import com.cominatyou.silverpoint.BuildConfig;
+import com.cominatyou.silverpoint.R;
 import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 import com.cominatyou.silverpoint.util.ActiveIncidentUtil;
 
@@ -20,10 +21,10 @@ public class DebugStatusItems {
 
         long lastRun = configSharedPreferences.getLong("lastInvoked", 0L);
         String lastInvokedFormatted = lastRun == 0L ? "N/A" : DateUtils.getRelativeTimeSpanString(lastRun).toString();
-        binding.lastRanField.setText(lastInvokedFormatted.equals("0 minutes ago") ? "Just now" : lastInvokedFormatted);
+        binding.lastRanField.setText(System.currentTimeMillis() - lastRun < 60000 ? context.getString(R.string.activity_debug_last_ran_recently) : lastInvokedFormatted);
 
         boolean workerSuccess = configSharedPreferences.getBoolean("workerSuccess", false);
-        binding.workerResultField.setText(workerSuccess ? "Success" : "Failure");
+        binding.workerResultField.setText(workerSuccess ? context.getString(R.string.activity_debug_panel_last_run_success) : context.getString(R.string.activity_debug_panel_last_run_failure));
 
         final String latestIncidentID = ActiveIncidentUtil.getId(context);
         binding.latestIncidentId.setText(latestIncidentID.equals("") ? "null" : latestIncidentID);
@@ -33,6 +34,6 @@ public class DebugStatusItems {
         binding.versionField.setText(String.format(Locale.getDefault(), "%s %s, %d", BuildConfig.VERSION_NAME, BuildConfig.BUILD_TYPE, BuildConfig.VERSION_CODE));
 
         final ZonedDateTime buildTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(BuildConfig.BUILD_TIME)), TimeZone.getTimeZone("America/Chicago").toZoneId());
-        binding.buildTimestamp.setText(buildTime.format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:KK a z")));
+        binding.buildTimestamp.setText(DateTimeFormatter.ofPattern(Locale.getDefault().equals(Locale.US) ? "MMMM d, yyyy h:mm a z" : "dd MMM yyyy HH:mm z", Locale.getDefault()).format(buildTime));
     }
 }

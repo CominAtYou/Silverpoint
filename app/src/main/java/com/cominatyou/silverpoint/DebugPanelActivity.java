@@ -1,27 +1,30 @@
 package com.cominatyou.silverpoint;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
-import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 import com.cominatyou.silverpoint.activityresources.debugpanel.ClearSharedPreferences;
 import com.cominatyou.silverpoint.activityresources.debugpanel.DebugStatusItems;
 import com.cominatyou.silverpoint.activityresources.debugpanel.DebugSwitch;
+import com.cominatyou.silverpoint.databinding.ActivityDebugPanelBinding;
 import com.google.android.material.color.DynamicColors;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class DebugPanelActivity extends AppCompatActivity {
-
-    private final Handler timerHandler = new Handler();
-
     public ActivityDebugPanelBinding binding;
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            DebugStatusItems.update(getApplicationContext(), binding);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,12 @@ public class DebugPanelActivity extends AppCompatActivity {
 
         binding.clearSharedPreferencesLayout.setOnClickListener(_s -> ClearSharedPreferences.onClick(this));
 
-        // TODO: Use broadcasts for this.
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                timerHandler.post(() -> DebugStatusItems.update(getApplicationContext(), binding));
-            }
-        }, 0L, 1000L);
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction("INCIDENT_UPDATED");
+        filter.addAction(Intent.ACTION_TIME_TICK);
+
+        registerReceiver(broadcastReceiver, filter);
+
+        DebugStatusItems.update(getApplicationContext(), binding);
     }
 }

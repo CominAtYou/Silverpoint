@@ -37,6 +37,9 @@
     <string name="activity_main_settings_layout_title">Settings</string>
     <string name="activity_main_settings_layout_description">Configure aspects of the app</string>
     <string name="activity_incident_status_title">Active incident</string>
+    <string name="activity_debug_last_ran_recently">Just now</string>
+    <string name="activity_debug_panel_last_run_success">Success</string>
+    <string name="activity_debug_panel_last_run_failure">Failure</string>
     <string name="settings_long_click_bottom_sheet_settings_label">Settings</string>
     <string name="settings_long_click_bottom_sheet_debug_label">Debug</string>
     <string name="license_activity_title">Licenses</string>
