@@ -117,9 +117,6 @@ public class NotificationsPromptActivity extends AppCompatActivity {
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("SETUP_COMPLETED"));
                         finish();
                     }
-                    else {
-                        shouldRunNotificationsPermissionCheckOnResume = true;
-                    }
                 }
             }, 750);
         }
