@@ -92,4 +92,12 @@
     <string name="theme_select_activity_notice">\'Follow system\' will automatically change the theme to match the system theme. To override it, select one of the above settings.</string>
     <string name="snooze_notifications_bottom_sheet_title">Snooze notifications</string>
     <string name="developer_options_bottom_sheet_title">Developer options</string>
+    <string name="incidents_notification_channel_group_name">Incidents</string>
+    <string name="miscellaneous_notification_channel_group_name">Miscellaneous</string>
+    <string name="new_incident_notification_channel_name">New Incidents</string>
+    <string name="new_incident_notification_channel_description">Notifications for new incidents/</string>
+    <string name="incident_updates_notification_channel_name">Incident Updates</string>
+    <string name="incident_updates_notification_channel_description">Notifications regarding updates for existing incidents.</string>
+    <string name="available_updates_notification_channel_name">Available Updates</string>
+    <string name="available_updates_notification_channel_description">Notifications for when required updates are available.</string>
 </resources>
