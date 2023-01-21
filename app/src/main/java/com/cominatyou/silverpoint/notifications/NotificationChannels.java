@@ -12,8 +12,20 @@ import com.cominatyou.silverpoint.R;
 import java.util.Arrays;
 
 public class NotificationChannels {
-    public static final ActiveIncidentNotificationChannels ActiveIncidents = new ActiveIncidentNotificationChannels();
-    public static final MiscellaneousNotificationChannels Miscellaneous = new MiscellaneousNotificationChannels();
+    public static class Miscellaneous {
+        public static final String UPDATE_CHANNEL = "UPDATES";
+    }
+
+    public static class ActiveIncidents {
+        /**
+         * The notification channel for new incidents (the initial notification for the incident)
+         */
+        public static final String CHANNEL_NEW_INCIDENT = "NEW_INCIDENT";
+        /**
+         * The notification channel for incident updates
+         */
+        public static final String CHANNEL_INCIDENT_UPDATES = "INCIDENT_UPDATES";
+    }
 
     public static void createActiveIncidentChannels(Context context) {
         context.getSystemService(NotificationManager.class).createNotificationChannelGroups(
