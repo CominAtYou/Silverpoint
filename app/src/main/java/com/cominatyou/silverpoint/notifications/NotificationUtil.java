@@ -1,10 +1,13 @@
 package com.cominatyou.silverpoint.notifications;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -13,7 +16,8 @@ import com.cominatyou.silverpoint.IncidentStatusActivity;
 
 public class NotificationUtil {
     public static void send(String title, String description, String buttonText, String shortlink, String channelId, Context context) {
-        if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
+        if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0)
+            return;
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return;
 
         Intent linkIntent = new Intent(Intent.ACTION_VIEW);
@@ -29,7 +33,7 @@ public class NotificationUtil {
                 .setContentTitle(title)
                 .setContentText(description)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(description))
+                        .bigText(description))
                 .setSmallIcon(R.drawable.ic_dns)
                 .setContentIntent(activityPendingIntent)
                 .addAction(R.drawable.ic_open_link, buttonText, linkPendingIntent)
@@ -37,7 +41,10 @@ public class NotificationUtil {
                 .setAutoCancel(true);
 
         NotificationChannels.createActiveIncidentChannels(context);
-        NotificationManagerCompat.from(context).notify(1, builder.build());
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            NotificationManagerCompat.from(context).notify(1, builder.build());
+        }
     }
     public static void sendWithoutTapAction(String title, String description, String buttonText, String shortlink, String channelId, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
@@ -58,7 +65,10 @@ public class NotificationUtil {
                 .setColor(context.getColor(R.color.silverpoint_light));
 
         NotificationChannels.createActiveIncidentChannels(context);
-        NotificationManagerCompat.from(context).notify(1, builder.build());
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            NotificationManagerCompat.from(context).notify(1, builder.build());
+        }
     }
     public static void sendUpdateNotification(String title, String description, String buttonText, String shortlink, Context context) {
         if (System.currentTimeMillis() - context.getSharedPreferences("config", Context.MODE_PRIVATE).getLong("notificationsnooze", 0L) < 0) return;
@@ -79,6 +89,9 @@ public class NotificationUtil {
                 .setColor(context.getColor(R.color.silverpoint_light));
 
         NotificationChannels.createAvailableUpdateChannel(context);
-        NotificationManagerCompat.from(context).notify(2, builder.build());
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            NotificationManagerCompat.from(context).notify(2, builder.build());
+        }
     }
 }
