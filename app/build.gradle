@@ -6,12 +6,21 @@ plugins {
 android {
     compileSdk 33
 
+    def getCommitHash = { ->
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+
     defaultConfig {
         applicationId "com.cominatyou.silverpoint"
         minSdk 29
         targetSdk 33
-        versionCode 34
-        versionName "5.3.1"
+        versionCode 35
+        versionName "5.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -19,11 +28,13 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BUILD_TIME", "\"" + System.currentTimeMillis().toString() + "\"")
+            buildConfigField("String", "COMMIT_HASH", "\"" + getCommitHash() + "\"")
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BUILD_TIME", "\"" + System.currentTimeMillis().toString() + "\"")
+            buildConfigField("String", "COMMIT_HASH", "\"" + getCommitHash() + "\"")
         }
     }
     compileOptions {

@@ -100,12 +100,58 @@
                 tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/version_layout"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/commit_layout">
+
+            <ImageView
+                android:id="@+id/commit_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_commit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/text"/>
+
+            <TextView
+                android:id="@+id/commit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/commit_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.AppCompat.InfoTitle"
+                android:text="@string/about_commit_layout_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/commit_description"
+                tools:text="d6a5288"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/gs_text_regular"
+                app:layout_constraintStart_toStartOf="@id/commit_title"
+                app:layout_constraintTop_toBottomOf="@id/commit_title"
+                android:paddingBottom="16dp"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/commit_layout"
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
             android:id="@+id/source_layout">
@@ -137,8 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/source_description"
-                android:text="CominAtYou/Silverpoint"
                 android:layout_marginTop="2dp"
+                android:text="@string/about_source_layout_description"
                 android:fontFamily="@font/gs_text_regular"
                 app:layout_constraintStart_toStartOf="@id/source_title"
                 app:layout_constraintTop_toBottomOf="@id/source_title"

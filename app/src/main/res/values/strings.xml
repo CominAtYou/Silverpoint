@@ -52,7 +52,9 @@
     <string name="about_activity_title">About</string>
     <string name="about_basic_info_header">Basic info</string>
     <string name="about_version_layout_title">Version</string>
+    <string name="about_commit_layout_title">Commit</string>
     <string name="about_source_layout_title">Source</string>
+    <string name="about_source_layout_description">CominAtYou/Silverpoint</string>
     <string name="about_attribution_section_header">Attribution</string>
     <string name="about_icons_layout_title">Icons</string>
     <string name="about_icons_layout_description">Google Material Icons</string>

@@ -27,6 +27,7 @@ public class AboutActivity extends AppCompatActivity {
         binding.topBar.setNavigationOnClickListener(_s -> finish());
 
         binding.versionDescription.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+        binding.commitDescription.setText(BuildConfig.COMMIT_HASH);
 
         CustomTabsIntent intent = new CustomTabsIntent.Builder().setShowTitle(true).build();
         binding.sourceLayout.setOnClickListener(_s -> intent.launchUrl(this, Uri.parse("https://github.com/CominAtYou/Silverpoint")));
