@@ -37,14 +37,13 @@ public class NotificationChannels {
 
         final String[] notificationChannelDescriptions = { "Notifications for new incidents.", "Notifications regarding updates for existing incidents." };
 
-
         for (int i = 0; i < notificationChannels.length; i++) {
             notificationChannels[i].setDescription(notificationChannelDescriptions[i]);
             notificationChannels[i].setGroup("activeincidents");
             notificationChannels[i].setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification_sound), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
-            context.getSystemService(NotificationManager.class).createNotificationChannel(notificationChannels[i]);
         }
 
+        context.getSystemService(NotificationManager.class).createNotificationChannels(Arrays.asList(notificationChannels));
     }
     public static void createAvailableUpdateChannel(Context context) {
         CharSequence name = "Available Updates";
