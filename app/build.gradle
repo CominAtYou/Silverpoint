@@ -23,6 +23,8 @@ android {
         versionName "5.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        resConfigs "en"
     }
 
     buildTypes {

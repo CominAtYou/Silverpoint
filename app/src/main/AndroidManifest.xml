@@ -16,7 +16,8 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Silverpoint"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        tools:targetApi="s">
+        android:localeConfig="@xml/locales_config"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".IncidentStatusActivity"
             android:exported="false"/>
@@ -44,6 +45,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity android:name=".SettingsActivity"
+
             android:exported="false"/>
 
         <activity android:name=".activityresources.settingsactivity.UpdateFrequencyActivity"
