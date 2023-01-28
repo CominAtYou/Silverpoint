@@ -95,7 +95,7 @@
     <string name="incidents_notification_channel_group_name">Incidents</string>
     <string name="miscellaneous_notification_channel_group_name">Miscellaneous</string>
     <string name="new_incident_notification_channel_name">New Incidents</string>
-    <string name="new_incident_notification_channel_description">Notifications for new incidents/</string>
+    <string name="new_incident_notification_channel_description">Notifications for new incidents</string>
     <string name="incident_updates_notification_channel_name">Incident Updates</string>
     <string name="incident_updates_notification_channel_description">Notifications regarding updates for existing incidents.</string>
     <string name="available_updates_notification_channel_name">Available Updates</string>
