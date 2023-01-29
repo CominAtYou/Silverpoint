@@ -100,4 +100,11 @@
     <string name="incident_updates_notification_channel_description">Notifications regarding updates for existing incidents.</string>
     <string name="available_updates_notification_channel_name">Available Updates</string>
     <string name="available_updates_notification_channel_description">Notifications for when required updates are available.</string>
+    <string name="update_snackbar_standard_update_available_label">Update available (%1$s)</string>
+    <string name="update_snackbar_breaking_update_available_label">Update available. You will not be able to receive notifications until you update.</string>
+    <string name="update_snackbar_action_button_text">Update</string>
+    <string name="update_downloads_channel_name">Update Downloads</string>
+    <string name="update_downloads_channel_description">Notifications for when updates are being downloaded.</string>
+    <string name="update_downloads_notification_title">Downloading update</string>
+    <string name="update_downloads_notification_description">Downloading version %1$s</string>
 </resources>

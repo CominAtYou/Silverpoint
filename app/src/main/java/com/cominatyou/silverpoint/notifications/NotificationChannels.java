@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class NotificationChannels {
     public static class Miscellaneous {
         public static final String UPDATE_CHANNEL = "UPDATES";
+        public static final String UPDATE_DOWNLOADS_CHANNEL = "UPDATE_DOWNLOADS";
     }
 
     public static class ActiveIncidents {
@@ -45,13 +46,26 @@ public class NotificationChannels {
         context.getSystemService(NotificationManager.class).createNotificationChannels(Arrays.asList(notificationChannels));
     }
     public static void createAvailableUpdateChannel(Context context) {
-        String name = context.getString(R.string.available_updates_notification_channel_name);
-        String channelDescription = context.getString(R.string.available_updates_notification_channel_description);
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        final String name = context.getString(R.string.available_updates_notification_channel_name);
+        final String channelDescription = context.getString(R.string.available_updates_notification_channel_description);
+        final int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
         context.getSystemService(NotificationManager.class).createNotificationChannelGroup(new NotificationChannelGroup("miscellaneous", context.getString(R.string.miscellaneous_notification_channel_group_name)));
 
-        NotificationChannel channel = new NotificationChannel(Miscellaneous.UPDATE_CHANNEL, name, importance);
+        final NotificationChannel channel = new NotificationChannel(Miscellaneous.UPDATE_CHANNEL, name, importance);
+        channel.setDescription(channelDescription);
+        channel.setGroup("miscellaneous");
+        channel.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification_sound), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
+
+        context.getSystemService(NotificationManager.class).createNotificationChannel(channel);
+    }
+
+    public static void createUpdateDownloadChannel(Context context) {
+        final String name = context.getString(R.string.update_downloads_channel_name);
+        final String channelDescription = context.getString(R.string.update_downloads_channel_description);
+        final int importance = NotificationManager.IMPORTANCE_LOW;
+
+        final NotificationChannel channel = new NotificationChannel(Miscellaneous.UPDATE_DOWNLOADS_CHANNEL, name, importance);
         channel.setDescription(channelDescription);
         channel.setGroup("miscellaneous");
         channel.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.notification_sound), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());

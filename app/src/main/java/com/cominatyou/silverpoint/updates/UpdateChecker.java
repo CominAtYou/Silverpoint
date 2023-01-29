@@ -2,7 +2,6 @@ package com.cominatyou.silverpoint.updates;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -33,16 +32,12 @@ public class UpdateChecker { // TODO: Add logging
                 JSONObject response = new JSONObject(rsp);
                 final String newVersion = response.getString("version");
                 if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && !response.getBoolean("breaking")) {
-                    Log.v("UpdateChecker", String.format("A new version is available (%s)", response.getString("version")));
-                    Snackbar snackbar = Snackbar.make(activity.binding.getRoot(), String.format("Update available (%s)", newVersion), Snackbar.LENGTH_LONG).setAction("Update", v -> customTabsIntent.launchUrl(activity, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
-                    snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
-                    snackbar.show();
+                    Log.v("UpdateChecker", String.format("A new version is available (%s)", newVersion));
+                    Snackbar.make(activity.binding.getRoot(), activity.getString(R.string.update_snackbar_standard_update_available_label, newVersion), Snackbar.LENGTH_LONG).setAction(R.string.update_snackbar_action_button_text, v -> UpdateDownloadKickoff.downloadUpdate(activity, newVersion)).show();
                 }
                 else if (response.getInt("versionCode") > BuildConfig.VERSION_CODE && response.getBoolean("breaking")) {
-                    Log.v("UpdateChecker", String.format("Breaking update available (%s). Disabling most app functionality until update is installed.", response.getString("version")));
-                    Snackbar snackbar = Snackbar.make(activity.binding.getRoot(), "Update available. You will not be able to receive notifications until you update.", Snackbar.LENGTH_INDEFINITE).setAction("Update", v -> customTabsIntent.launchUrl(activity, Uri.parse("https://cdn.cominatyou.com/silverpoint/releases/latest")));
-                    snackbar.getView().setBackgroundResource(R.drawable.tags_rounded_corners);
-                    snackbar.show();
+                    Log.v("UpdateChecker", String.format("Breaking update available (%s). Disabling most app functionality until update is installed.", newVersion));
+                    Snackbar.make(activity.binding.getRoot(), R.string.update_snackbar_breaking_update_available_label, Snackbar.LENGTH_INDEFINITE).setAction(R.string.update_snackbar_action_button_text, v -> UpdateDownloadKickoff.downloadUpdate(activity, newVersion)).show();
 
                     final TextView[] buttonTitles = { activity.binding.startWorkerTitle, activity.binding.viewActiveIncidentTitle, activity.binding.settingsTitle };
                     for (TextView titleText : buttonTitles) {
