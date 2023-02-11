@@ -46,8 +46,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity android:name=".SettingsActivity"
-
-            android:exported="false"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".activityresources.settingsactivity.UpdateFrequencyActivity"
             android:exported="false"/>
